@@ -1,0 +1,1807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Josua Martinez — Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    /* solarpunk · night */
+    --bg:        #0a140e;
+    --bg-soft:   #112019;
+    --panel:     #16271e;
+    --panel-2:   #1d3528;
+    --line:      rgba(233,228,208,.10);
+    --line-2:    rgba(233,228,208,.18);
+
+    --leaf:      #7dd47f;
+    --leaf-deep: #3aa37a;
+    --moss:      #2a6d4c;
+    --gold:      #f5c06b;
+    --gold-deep: #d99e4a;
+    --ember:     #ff8c42;
+    --cream:     #e9e4d0;
+
+    --text:      #e9e4d0;
+    --text-soft: rgba(233,228,208,.72);
+    --muted:     rgba(233,228,208,.50);
+
+    --display:   "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+    --body:      "Outfit", ui-sans-serif, system-ui, sans-serif;
+    --mono:      "JetBrains Mono", ui-monospace, monospace;
+    --serif:     "Instrument Serif", ui-serif, Georgia, serif;
+  }
+
+  /* day mode overrides */
+  html[data-theme="day"] {
+    --bg:        #f0e9d2;
+    --bg-soft:   #e8dfc3;
+    --panel:     #f7f1dd;
+    --panel-2:   #ebe1c2;
+    --line:      rgba(20,40,28,.10);
+    --line-2:    rgba(20,40,28,.20);
+
+    --leaf:      #2f7a4c;
+    --leaf-deep: #1f5a36;
+    --moss:      #294f33;
+    --gold:      #c97b3c;
+    --gold-deep: #a55a22;
+    --ember:     #c4521e;
+    --cream:     #1a2b1f;
+
+    --text:      #142319;
+    --text-soft: rgba(20,35,25,.72);
+    --muted:     rgba(20,35,25,.55);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background .8s ease, color .8s ease;
+  }
+
+  a { color: inherit; }
+
+  /* ─── nav ─────────────────────────────────────────────────── */
+  .nav {
+    position: fixed;
+    top: 18px; left: 50%; transform: translateX(-50%);
+    z-index: 100;
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 8px 6px 18px;
+    background: color-mix(in oklab, var(--panel) 70%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .01em;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 8px;
+    padding-right: 14px;
+    border-right: 1px solid var(--line-2);
+    color: var(--text);
+  }
+  .nav-brand .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--leaf);
+    box-shadow: 0 0 12px var(--leaf);
+    animation: pulse 2.6s infinite ease-in-out;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(.85); }
+  }
+  .nav a.nav-link {
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    color: var(--text-soft);
+    transition: color .2s, background .2s;
+  }
+  .nav a.nav-link:hover { color: var(--text); background: color-mix(in oklab, var(--panel-2) 80%, transparent); }
+  .nav a.nav-link.active { color: var(--bg); background: var(--leaf); }
+  html[data-theme="day"] .nav a.nav-link.active { color: var(--panel); }
+
+  .daynight {
+    appearance: none; border: 0; cursor: pointer;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--panel-2);
+    color: var(--text);
+    display: grid; place-items: center;
+    margin-left: 4px;
+    transition: transform .5s, background .3s;
+  }
+  .daynight:hover { transform: rotate(40deg); background: color-mix(in oklab, var(--gold) 30%, var(--panel-2)); }
+  .daynight svg { width: 16px; height: 16px; }
+
+  .lang-btn {
+    appearance: none; border: 0; cursor: pointer;
+    padding: 0 11px; height: 34px; border-radius: 999px;
+    background: var(--panel-2);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    margin-left: 4px;
+    transition: background .3s, color .3s;
+  }
+  .lang-btn:hover { background: color-mix(in oklab, var(--leaf) 30%, var(--panel-2)); color: var(--leaf); }
+
+  /* ─── hero ────────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 120px 6vw 80px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .skyline {
+    position: absolute; inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .skyline > * { position: absolute; left: 0; right: 0; display: block; }
+  .sky-grad {
+    inset: 0;
+    background: radial-gradient(140% 80% at 70% 10%, rgba(245,192,107,.10), transparent 55%),
+                radial-gradient(120% 70% at 20% 20%, rgba(125,212,127,.06), transparent 60%),
+                linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 60%, var(--bg) 100%);
+    transition: background .8s;
+  }
+  html[data-theme="day"] .sky-grad {
+    background: radial-gradient(140% 80% at 70% 5%, rgba(245,192,107,.55), transparent 60%),
+                radial-gradient(120% 60% at 20% 30%, rgba(127,200,180,.30), transparent 70%),
+                linear-gradient(180deg, #f6e9c3 0%, #efdfb8 50%, #e8d8aa 100%);
+  }
+
+  /* stars */
+  .stars { inset: 0; opacity: 1; transition: opacity .8s; }
+  html[data-theme="day"] .stars { opacity: 0; }
+
+  /* layered desk items */
+  .layer-back, .layer-mid, .layer-front {
+    bottom: 0; width: 100%;
+  }
+  .layer-back  { transform: translate3d(0, var(--py-back, 0px),  0); }
+  .layer-mid   {
+    transform: translate3d(0, var(--py-mid,  0px),  0);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 6%, #000 100%);
+  }
+  .layer-front { transform: translate3d(0, var(--py-front,0px),  0); }
+
+  /* sun / moon */
+  .celestial {
+    position: absolute;
+    right: 8vw; top: 18vh;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    transition: all .8s ease;
+  }
+  .celestial.sun {
+    background: radial-gradient(circle at 35% 35%, #ffe6a8, var(--gold) 55%, var(--gold-deep) 100%);
+    box-shadow: 0 0 80px rgba(245,192,107,.5), 0 0 200px rgba(245,192,107,.3);
+    opacity: 0;
+  }
+  .celestial.moon {
+    background: radial-gradient(circle at 35% 35%, #f6f0d8, #d8d0b0 50%, #a99f7a 100%);
+    box-shadow: 0 0 60px rgba(233,228,208,.25);
+    opacity: 1;
+  }
+  html[data-theme="day"] .celestial.sun  { opacity: 1; }
+  html[data-theme="day"] .celestial.moon { opacity: 0; }
+
+  /* hero content */
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 56px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding-top: 4vh;
+    align-items: center;
+  }
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px 6px 8px;
+    background: color-mix(in oklab, var(--panel) 80%, transparent);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .04em;
+    color: var(--text-soft);
+    margin-bottom: 22px;
+  }
+  .hero-eyebrow .led {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--leaf);
+    box-shadow: 0 0 8px var(--leaf);
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(44px, 6.6vw, 92px);
+    line-height: .98;
+    letter-spacing: -0.025em;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  .hero h1 .accent {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--leaf);
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--text-soft);
+    max-width: 36ch;
+    text-wrap: pretty;
+    margin: 0 0 30px;
+  }
+  .hero-cta {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--line-2);
+    background: transparent;
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .btn:hover { border-color: var(--leaf); color: var(--leaf); }
+  .btn-primary {
+    background: var(--leaf);
+    color: var(--bg);
+    border-color: var(--leaf);
+  }
+  html[data-theme="day"] .btn-primary { color: var(--panel); }
+  .btn-primary:hover {
+    background: color-mix(in oklab, var(--leaf) 88%, white);
+    color: var(--bg);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px color-mix(in oklab, var(--leaf) 40%, transparent);
+  }
+
+  /* terminal */
+  .terminal {
+    background: linear-gradient(180deg, #0d1813 0%, #0a1410 100%);
+    border: 1px solid rgba(125,212,127,.18);
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5),
+                0 0 0 1px rgba(125,212,127,.05),
+                inset 0 1px 0 rgba(255,255,255,.03);
+    font-family: var(--mono);
+    font-size: 13.5px;
+    line-height: 1.7;
+    overflow: hidden;
+    color: #cfe9d0;
+    width: 100%;
+    max-width: 520px;
+    justify-self: end;
+  }
+  html[data-theme="day"] .terminal {
+    background: linear-gradient(180deg, #122019 0%, #0e1a13 100%);
+  }
+  @media (max-width: 880px) { .terminal { justify-self: start; max-width: 100%; } }
+  .term-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: rgba(125,212,127,.05);
+    border-bottom: 1px solid rgba(125,212,127,.10);
+  }
+  .term-bar .dots { display: flex; gap: 6px; }
+  .term-bar .dots i {
+    width: 10px; height: 10px; border-radius: 50%; display: block;
+    background: #444;
+  }
+  .term-bar .dots i:nth-child(1) { background: #ff6b5e; }
+  .term-bar .dots i:nth-child(2) { background: #f5c06b; }
+  .term-bar .dots i:nth-child(3) { background: #7dd47f; }
+  .term-bar .title {
+    font-size: 11.5px; color: rgba(207,233,208,.55);
+    letter-spacing: .04em;
+  }
+  .term-body { padding: 16px 18px 20px; min-height: 240px; }
+  .term-line { white-space: pre-wrap; }
+  .term-prompt { color: #7dd47f; }
+  .term-path   { color: #f5c06b; }
+  .term-cmd    { color: #cfe9d0; }
+  .term-out    { color: rgba(207,233,208,.78); }
+  .term-key    { color: #f5c06b; }
+  .term-str    { color: #b5e0b6; }
+  .caret {
+    display: inline-block; width: 8px; height: 1.05em;
+    background: #7dd47f;
+    vertical-align: -2px;
+    margin-left: 1px;
+    animation: blink 1.05s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .scroll-hint .line {
+    width: 1px; height: 38px;
+    background: linear-gradient(180deg, var(--leaf), transparent);
+    animation: drip 2.4s ease-in-out infinite;
+  }
+  @keyframes drip {
+    0%, 100% { transform: scaleY(.4); transform-origin: top; opacity: .4; }
+    50%      { transform: scaleY(1);  transform-origin: top; opacity: 1; }
+  }
+
+  /* ─── section base ─────────────────────────────────────────── */
+  section.scene {
+    position: relative;
+    padding: 110px 6vw;
+    border-top: 1px solid var(--line);
+  }
+  .container { max-width: 1240px; margin: 0 auto; }
+
+  .section-hd {
+    display: flex; align-items: baseline; gap: 18px;
+    margin-bottom: 56px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--leaf);
+    letter-spacing: .12em;
+  }
+  .section-hd h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(34px, 4.4vw, 56px);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0;
+  }
+  .section-hd h2 em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--leaf);
+  }
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--line-2), transparent);
+    align-self: end; margin-bottom: 14px;
+  }
+
+  /* ─── introductions ───────────────────────────────────────── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 980px) { .intro-grid { grid-template-columns: 1fr; } }
+  .intro-body p {
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--text-soft);
+    max-width: 60ch;
+    text-wrap: pretty;
+    margin: 0 0 22px;
+  }
+  .intro-body .placeholder {
+    display: inline-block;
+    padding: 14px 18px;
+    background: repeating-linear-gradient(135deg,
+       color-mix(in oklab, var(--gold) 14%, transparent) 0 6px,
+       transparent 6px 12px);
+    border: 1px dashed var(--gold);
+    border-radius: 6px;
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 13px;
+    margin: 8px 0 8px;
+  }
+  .factcard {
+    background: var(--panel);
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .factcard .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .factcard .row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .factcard .row:first-child { padding-top: 0; }
+  .factcard .k {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .06em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .factcard .v {
+    font-family: var(--body);
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .factcard .v .leaf { color: var(--leaf); }
+
+  /* ─── skills ──────────────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  @media (max-width: 980px) { .skills-grid { grid-template-columns: 1fr; } }
+
+  /* server rack */
+  .rack {
+    background: linear-gradient(180deg, #0c1410 0%, #0a110d 100%);
+    border: 1px solid rgba(125,212,127,.14);
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5),
+                inset 0 0 0 2px rgba(0,0,0,.4),
+                inset 0 0 60px rgba(125,212,127,.04);
+    position: relative;
+  }
+  .rack::before {
+    content: "JM-RACK-01 · HOMELAB";
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    color: rgba(125,212,127,.45);
+    padding: 4px 8px 10px;
+  }
+  html[data-theme="day"] .rack { background: linear-gradient(180deg,#192c22 0%, #122019 100%); }
+  .rack .u {
+    background: linear-gradient(180deg, #1c2a23 0%, #14201a 100%);
+    border: 1px solid rgba(125,212,127,.12);
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    display: flex; align-items: center;
+    gap: 10px;
+    color: rgba(207,233,208,.85);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    position: relative;
+    overflow: hidden;
+  }
+  .rack .u .leds {
+    display: flex; gap: 5px;
+  }
+  .rack .u .leds i {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #2a3a32; display: block;
+  }
+  .rack .u .leds i.on-g { background: #7dd47f; box-shadow: 0 0 6px #7dd47f; }
+  .rack .u .leds i.on-a { background: #f5c06b; box-shadow: 0 0 6px #f5c06b; }
+  .rack .u .leds i.on-r { background: #ff6b5e; box-shadow: 0 0 6px #ff6b5e; }
+  .rack .u .label { letter-spacing: .04em; }
+  .rack .u .grow { flex: 1; }
+  .rack .u .meter {
+    width: 64px; height: 4px; border-radius: 2px;
+    background: rgba(125,212,127,.10);
+    position: relative; overflow: hidden;
+  }
+  .rack .u .meter span {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--leaf-deep), var(--leaf));
+    border-radius: 2px;
+  }
+  .rack .u.tall { padding: 16px 12px; }
+  .rack .u.tall .screen {
+    flex: 1;
+    height: 28px;
+    background:
+      repeating-linear-gradient(0deg, rgba(125,212,127,.07) 0 1px, transparent 1px 4px),
+      linear-gradient(180deg, #0a1410, #050a08);
+    border: 1px solid rgba(125,212,127,.16);
+    border-radius: 3px;
+    display: flex; align-items: center; padding: 0 8px;
+    color: var(--leaf);
+    overflow: hidden;
+  }
+  .rack .u.tall .screen .bars {
+    display: flex; align-items: end; gap: 2px; height: 18px;
+  }
+  .rack .u.tall .screen .bars i {
+    width: 3px; background: var(--leaf); border-radius: 1px; display: block;
+  }
+  .rack .vents {
+    height: 14px;
+    border-radius: 5px;
+    background:
+      repeating-linear-gradient(90deg, #0a1410 0 4px, #14201a 4px 6px);
+    margin-top: 6px;
+  }
+
+  /* skill cluster */
+  .skill-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 36px; }
+  @media (max-width: 700px) { .skill-groups { grid-template-columns: 1fr; } }
+  .skill-group h4 {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--leaf);
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--line-2);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 13px;
+    background: var(--panel);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-soft);
+    transition: all .2s;
+  }
+  .chip:hover {
+    border-color: var(--leaf);
+    color: var(--text);
+    background: color-mix(in oklab, var(--panel) 70%, var(--leaf));
+    transform: translateY(-1px);
+  }
+  .chip::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--leaf-deep);
+  }
+  .chip.gold::before { background: var(--gold-deep); }
+  .chip.ember::before { background: var(--ember); }
+
+  /* ─── projects ────────────────────────────────────────────── */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 980px) { .proj-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .proj-grid { grid-template-columns: 1fr; } }
+
+  .proj {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line-2);
+    border-radius: 18px;
+    padding: 26px;
+    overflow: hidden;
+    isolation: isolate;
+    cursor: default;
+    transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    display: flex; flex-direction: column;
+    min-height: 280px;
+  }
+  .proj::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(60% 80% at 50% 0%, color-mix(in oklab, var(--leaf) 16%, transparent), transparent 70%);
+    opacity: 0; transition: opacity .4s;
+    z-index: -1;
+  }
+  .proj:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--leaf) 60%, var(--line-2));
+    box-shadow: 0 30px 70px -20px color-mix(in oklab, var(--leaf) 30%, transparent),
+                0 10px 30px rgba(0,0,0,.3);
+  }
+  .proj:hover::before { opacity: 1; }
+
+  .proj.span-3 { grid-column: span 3; }
+  .proj.span-2 { grid-column: span 2; }
+  @media (max-width: 980px) {
+    .proj.span-3, .proj.span-2 { grid-column: span 1; }
+  }
+
+  .proj-no {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    color: var(--muted);
+  }
+  .proj-glyph {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    background: color-mix(in oklab, var(--leaf) 14%, var(--panel-2));
+    border: 1px solid var(--line-2);
+    display: grid; place-items: center;
+    margin: 14px 0 18px;
+  }
+  .proj h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 1.15;
+    margin: 0 0 8px;
+    letter-spacing: -.01em;
+  }
+  .proj p {
+    font-size: 14.5px;
+    color: var(--text-soft);
+    line-height: 1.55;
+    margin: 0 0 18px;
+    text-wrap: pretty;
+  }
+  .proj .tags { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; }
+  .proj .tags span {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    padding: 4px 8px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+
+  /* experience timeline below projects */
+  .xp-row {
+    margin-top: 70px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 700px) { .xp-row { grid-template-columns: 1fr; gap: 20px; } }
+  .xp-row h3 {
+    font-family: var(--display);
+    font-size: 22px; margin: 0;
+    color: var(--text);
+  }
+  .xp-row p {
+    color: var(--text-soft);
+    margin: 6px 0 0;
+    max-width: 60ch;
+    text-wrap: pretty;
+  }
+  .xp-row .when {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--leaf);
+    letter-spacing: .06em;
+  }
+
+  /* ─── resume ──────────────────────────────────────────────── */
+  .resume-card {
+    background: linear-gradient(135deg,
+      color-mix(in oklab, var(--leaf) 16%, var(--panel)) 0%,
+      var(--panel) 60%,
+      color-mix(in oklab, var(--gold) 10%, var(--panel)) 100%);
+    border: 1px solid var(--line-2);
+    border-radius: 24px;
+    padding: 56px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  @media (max-width: 880px) { .resume-card { grid-template-columns: 1fr; padding: 36px; } }
+  .resume-card::before {
+    content: "";
+    position: absolute;
+    right: -120px; top: -120px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in oklab, var(--leaf) 30%, transparent), transparent 60%);
+  }
+  .resume-card h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -.015em;
+  }
+  .resume-card h3 em {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    color: var(--leaf);
+  }
+  .resume-card p {
+    color: var(--text-soft); margin: 0 0 22px;
+    max-width: 44ch; text-wrap: pretty;
+  }
+  .resume-meta {
+    background: color-mix(in oklab, var(--bg) 50%, transparent);
+    border: 1px solid var(--line-2);
+    border-radius: 16px;
+    padding: 24px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--text-soft);
+    line-height: 1.8;
+  }
+  .resume-meta .k { color: var(--muted); }
+  .resume-meta .v { color: var(--text); }
+
+  /* footer */
+  footer {
+    padding: 60px 6vw 50px;
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: .04em;
+  }
+  footer a { color: var(--text-soft); text-decoration: none; }
+  footer a:hover { color: var(--leaf); }
+
+  /* ─── visibility helpers ─── */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* reduce animations if user prefers */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01s !important; transition-duration: .01s !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- nav -->
+<nav class="nav" id="nav">
+  <div class="nav-brand"><span class="dot"></span><span>jm.</span></div>
+  <a class="nav-link" href="#home" data-i18n="nav_home">Inicio</a>
+  <a class="nav-link" href="#intro" data-i18n="nav_intro">Introducción</a>
+  <a class="nav-link" href="#skills" data-i18n="nav_skills">Habilidades</a>
+  <a class="nav-link" href="#work" data-i18n="nav_work">Experiencia &amp; Proyectos</a>
+  <a class="nav-link" href="#resume" data-i18n="nav_resume">Currículum</a>
+  
+  
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home" data-screen-label="01 Home">
+  <div class="skyline" aria-hidden="true">
+    <div class="sky-grad"></div>
+    <svg class="stars" viewBox="0 0 1600 700" preserveAspectRatio="none">
+      <g fill="#e9e4d0">
+        <circle cx="100"  cy="120" r="1"   opacity=".8"/>
+        <circle cx="240"  cy="80"  r="1.2" opacity=".5"/>
+        <circle cx="380"  cy="180" r="1"   opacity=".7"/>
+        <circle cx="520"  cy="60"  r=".9"  opacity=".6"/>
+        <circle cx="700"  cy="140" r="1.4" opacity=".9"/>
+        <circle cx="860"  cy="200" r="1"   opacity=".5"/>
+        <circle cx="980"  cy="90"  r=".8"  opacity=".7"/>
+        <circle cx="1100" cy="160" r="1.3" opacity=".8"/>
+        <circle cx="1260" cy="70"  r="1"   opacity=".6"/>
+        <circle cx="1420" cy="180" r="1.2" opacity=".5"/>
+        <circle cx="1520" cy="110" r=".9"  opacity=".7"/>
+        <circle cx="320"  cy="240" r=".8"  opacity=".4"/>
+        <circle cx="640"  cy="260" r=".9"  opacity=".5"/>
+        <circle cx="1180" cy="240" r=".8"  opacity=".4"/>
+      </g>
+    </svg>
+
+
+
+    <!-- ░░ BACK LAYER ░░ desk surface · mat · warm light pools ░░ -->
+    <svg class="layer-back" viewBox="0 0 1600 460" preserveAspectRatio="none"
+         style="height:54vh; min-height:300px;">
+      <defs>
+        <pattern id="woodGrain" width="120" height="460" patternUnits="userSpaceOnUse">
+          <rect width="120" height="460" fill="#16271e"/>
+          <line x1="18" y1="0" x2="15" y2="460" stroke="#1a2d22" stroke-width="2.5" opacity=".3"/>
+          <line x1="52" y1="0" x2="55" y2="460" stroke="#142319" stroke-width="1.2" opacity=".2"/>
+          <line x1="88" y1="0" x2="86" y2="460" stroke="#1a2d22" stroke-width="1.5" opacity=".18"/>
+          <line x1="105" y1="0" x2="107" y2="460" stroke="#142319" stroke-width=".8" opacity=".12"/>
+        </pattern>
+        <radialGradient id="lampGlow" cx=".35" cy=".3">
+          <stop offset="0%" stop-color="#f5c06b" stop-opacity=".14"/>
+          <stop offset="50%" stop-color="#f5c06b" stop-opacity=".04"/>
+          <stop offset="100%" stop-color="#f5c06b" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="screenGlow" cx=".65" cy=".45">
+          <stop offset="0%" stop-color="#7dd47f" stop-opacity=".10"/>
+          <stop offset="50%" stop-color="#7dd47f" stop-opacity=".03"/>
+          <stop offset="100%" stop-color="#7dd47f" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- desk surface (dark wood) -->
+      <rect width="1600" height="460" fill="url(#woodGrain)"/>
+
+      <!-- desk mat (dark leather pad) -->
+      <rect x="240" y="20" width="1120" height="420" rx="10" fill="#0c1810"/>
+      <rect x="240" y="20" width="1120" height="420" rx="10" fill="none" stroke="#3aa37a" stroke-width=".5" opacity=".15"/>
+      <!-- stitching on mat -->
+      <line x1="252" y1="28" x2="252" y2="432" stroke="#3aa37a" stroke-width=".4" stroke-dasharray="4 6" opacity=".18"/>
+      <line x1="1348" y1="28" x2="1348" y2="432" stroke="#3aa37a" stroke-width=".4" stroke-dasharray="4 6" opacity=".18"/>
+
+      <!-- warm lamp glow pool -->
+      <ellipse cx="500" cy="200" rx="550" ry="320" fill="url(#lampGlow)"/>
+      <!-- screen light spill on desk -->
+      <ellipse cx="1040" cy="250" rx="380" ry="250" fill="url(#screenGlow)"/>
+
+      <!-- wood knot details -->
+      <ellipse cx="100" cy="300" rx="18" ry="8" fill="none" stroke="#1a2d22" stroke-width="1" opacity=".2"/>
+      <ellipse cx="1500" cy="120" rx="14" ry="6" fill="none" stroke="#1a2d22" stroke-width=".8" opacity=".15"/>
+    </svg>
+
+    <!-- ░░ MID LAYER ░░ desk items — laptop · notebook · plants · lamp ░░ -->
+    <svg class="layer-mid" viewBox="0 0 1600 620" preserveAspectRatio="none"
+         style="height:min(64vh, 540px); min-height:380px;">
+      <defs>
+        <pattern id="keyGrid" width="16" height="16" patternUnits="userSpaceOnUse">
+          <rect width="16" height="16" fill="#0e1c14"/>
+          <rect x="1" y="1" width="13" height="13" rx="2" fill="#16271e" stroke="#3aa37a" stroke-width=".3" opacity=".6"/>
+        </pattern>
+        <pattern id="notebookLines" width="200" height="12" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="11" x2="200" y2="11" stroke="#3aa37a" stroke-width=".4" opacity=".25"/>
+        </pattern>
+        <pattern id="solarGrid" width="14" height="12" patternUnits="userSpaceOnUse">
+          <rect width="14" height="12" fill="#0e1c14"/>
+          <line x1="7" y1="0" x2="7" y2="12" stroke="#3aa37a" stroke-width=".5" opacity=".5"/>
+          <line x1="0" y1="6" x2="14" y2="6" stroke="#3aa37a" stroke-width=".5" opacity=".5"/>
+        </pattern>
+        <radialGradient id="screenLight" cx=".5" cy=".5">
+          <stop offset="0%" stop-color="#7dd47f" stop-opacity=".25"/>
+          <stop offset="80%" stop-color="#7dd47f" stop-opacity=".05"/>
+          <stop offset="100%" stop-color="#7dd47f" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="mugSteamGrad" cx=".5" cy="1">
+          <stop offset="0%" stop-color="#e9e4d0" stop-opacity=".12"/>
+          <stop offset="100%" stop-color="#e9e4d0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- ═══ DESK LAMP (upper-left area) ═══ -->
+      <g transform="translate(380 120)">
+        <!-- lamp base (top-down circle) -->
+        <circle cx="0" cy="0" r="40" fill="#1d3528" stroke="#3aa37a" stroke-width=".6"/>
+        <circle cx="0" cy="0" r="34" fill="#16271e"/>
+        <circle cx="0" cy="0" r="6" fill="#1d3528" stroke="#d99e4a" stroke-width=".5"/>
+        <!-- lamp arm -->
+        <line x1="0" y1="0" x2="-65" y2="-55" stroke="#d99e4a" stroke-width="3.5"/>
+        <line x1="-65" y1="-55" x2="-22" y2="-88" stroke="#d99e4a" stroke-width="3"/>
+        <!-- joint -->
+        <circle cx="-65" cy="-55" r="4.5" fill="#d99e4a"/>
+        <circle cx="-65" cy="-55" r="2" fill="#0a140e"/>
+        <!-- lamp head (shade from above — ellipse) -->
+        <ellipse cx="-22" cy="-88" rx="32" ry="16" fill="#d99e4a" opacity=".85"/>
+        <ellipse cx="-22" cy="-88" rx="24" ry="10" fill="#1d3528"/>
+        <!-- warm bulb glow -->
+        <ellipse cx="-22" cy="-88" rx="42" ry="28" fill="url(#mugSteamGrad)" opacity=".6"/>
+        <circle cx="-22" cy="-88" r="6" fill="#f5c06b" opacity=".5">
+          <animate attributeName="opacity" values=".5;.3;.5" dur="5s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+
+      <!-- ═══ OPEN LAPTOP (center-right area) ═══ -->
+      <g transform="translate(860 170)">
+        <!-- laptop screen (foreshortened, standing up — seen from above) -->
+        <rect x="0" y="0" width="300" height="90" rx="5" fill="#0a1410" stroke="#3aa37a" stroke-width="1.2"/>
+        <rect x="5" y="5" width="290" height="80" rx="3" fill="#0c1810"/>
+        <ellipse cx="150" cy="45" rx="130" ry="36" fill="url(#screenLight)"/>
+        <!-- code lines on screen -->
+        <g opacity=".75">
+          <rect x="14" y="14" width="55" height="2.5" rx="1" fill="#7dd47f"/>
+          <rect x="76" y="14" width="38" height="2.5" rx="1" fill="#f5c06b"/>
+          <rect x="120" y="14" width="72" height="2.5" rx="1" fill="#3aa37a"/>
+          <rect x="14" y="22" width="28" height="2.5" rx="1" fill="#5ee2c4"/>
+          <rect x="48" y="22" width="82" height="2.5" rx="1" fill="#7dd47f" opacity=".6"/>
+          <rect x="138" y="22" width="44" height="2.5" rx="1" fill="#f5c06b" opacity=".5"/>
+          <rect x="14" y="30" width="18" height="2.5" rx="1" fill="#cfe9d0" opacity=".4"/>
+          <rect x="38" y="30" width="64" height="2.5" rx="1" fill="#7dd47f" opacity=".5"/>
+          <rect x="14" y="38" width="92" height="2.5" rx="1" fill="#3aa37a" opacity=".6"/>
+          <rect x="112" y="38" width="36" height="2.5" rx="1" fill="#f5c06b" opacity=".4"/>
+          <rect x="14" y="46" width="50" height="2.5" rx="1" fill="#7dd47f" opacity=".5"/>
+          <rect x="70" y="46" width="28" height="2.5" rx="1" fill="#5ee2c4" opacity=".4"/>
+          <rect x="14" y="54" width="74" height="2.5" rx="1" fill="#cfe9d0" opacity=".3"/>
+          <rect x="94" y="54" width="52" height="2.5" rx="1" fill="#7dd47f" opacity=".5"/>
+          <rect x="14" y="62" width="40" height="2.5" rx="1" fill="#f5c06b" opacity=".4"/>
+          <rect x="60" y="62" width="85" height="2.5" rx="1" fill="#3aa37a" opacity=".5"/>
+          <rect x="14" y="70" width="65" height="2.5" rx="1" fill="#7dd47f" opacity=".35"/>
+          <rect x="86" y="70" width="30" height="2.5" rx="1" fill="#5ee2c4" opacity=".3"/>
+        </g>
+        <!-- webcam dot -->
+        <circle cx="150" cy="3.5" r="1.8" fill="#ff8c42" opacity=".25"/>
+
+        <!-- laptop base (keyboard deck) -->
+        <rect x="-10" y="94" width="320" height="210" rx="8" fill="#1d3528" stroke="#3aa37a" stroke-width=".8" opacity=".9"/>
+        <!-- keyboard area -->
+        <rect x="18" y="110" width="264" height="110" rx="4" fill="url(#keyGrid)"/>
+        <!-- trackpad -->
+        <rect x="105" y="240" width="90" height="50" rx="8" fill="#16271e" stroke="#3aa37a" stroke-width=".5" opacity=".5"/>
+        <!-- hinge detail -->
+        <rect x="30" y="92" width="240" height="4" rx="2" fill="#16271e"/>
+        <!-- power LED -->
+        <circle cx="150" cy="302" r="2.5" fill="#7dd47f" opacity=".7">
+          <animate attributeName="opacity" values=".7;.25;.7" dur="3s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+
+      <!-- ═══ NOTEBOOK (left side, slightly angled) ═══ -->
+      <g transform="translate(100 240) rotate(-8)">
+        <!-- cover -->
+        <rect x="0" y="0" width="170" height="230" rx="3" fill="#1d3528" stroke="#d99e4a" stroke-width="1"/>
+        <!-- pages -->
+        <rect x="4" y="4" width="162" height="222" rx="2" fill="#0e1c14"/>
+        <rect x="4" y="4" width="162" height="222" rx="2" fill="url(#notebookLines)" opacity=".6"/>
+        <!-- handwritten-style notes -->
+        <g opacity=".45">
+          <rect x="18" y="22" width="82" height="2" rx="1" fill="#e9e4d0"/>
+          <rect x="18" y="36" width="110" height="2" rx="1" fill="#e9e4d0" opacity=".7"/>
+          <rect x="18" y="50" width="65" height="2" rx="1" fill="#e9e4d0" opacity=".6"/>
+          <rect x="18" y="64" width="100" height="2" rx="1" fill="#e9e4d0" opacity=".5"/>
+          <rect x="18" y="78" width="55" height="2" rx="1" fill="#f5c06b" opacity=".6"/>
+          <rect x="18" y="92" width="90" height="2" rx="1" fill="#e9e4d0" opacity=".4"/>
+          <rect x="18" y="106" width="72" height="2" rx="1" fill="#e9e4d0" opacity=".5"/>
+          <rect x="18" y="120" width="120" height="2" rx="1" fill="#e9e4d0" opacity=".3"/>
+          <!-- small diagram -->
+          <rect x="18" y="144" width="46" height="28" rx="2" fill="none" stroke="#7dd47f" stroke-width=".8"/>
+          <line x1="40" y1="158" x2="82" y2="158" stroke="#7dd47f" stroke-width=".8"/>
+          <rect x="82" y="146" width="36" height="24" rx="2" fill="none" stroke="#f5c06b" stroke-width=".8"/>
+        </g>
+        <!-- spine binding -->
+        <line x1="0" y1="0" x2="0" y2="230" stroke="#d99e4a" stroke-width="3"/>
+        <!-- bookmark ribbon -->
+        <line x1="28" y1="0" x2="26" y2="-16" stroke="#ff8c42" stroke-width="2"/>
+        <path d="M23 -16 L26 -16 L28 -10 L30 -16 L33 -16" fill="#ff8c42" opacity=".8"/>
+      </g>
+
+      <!-- ═══ PEN (near notebook) ═══ -->
+      <g transform="translate(300 360) rotate(15)">
+        <rect x="0" y="0" width="120" height="5.5" rx="2.8" fill="#1d3528"/>
+        <rect x="0" y="0" width="18" height="5.5" rx="2.8" fill="#d99e4a"/>
+        <polygon points="118,0 130,2.75 118,5.5" fill="#e9e4d0" opacity=".6"/>
+        <rect x="18" y="0" width="2" height="5.5" fill="#d99e4a" opacity=".5"/>
+      </g>
+
+      <!-- ═══ SUCCULENT PLANT (far left) ═══ -->
+      <g transform="translate(80 150)">
+        <!-- terracotta pot rim (top-down circle) -->
+        <circle cx="0" cy="0" r="34" fill="#d99e4a" opacity=".65"/>
+        <circle cx="0" cy="0" r="28" fill="#1d3528"/>
+        <circle cx="0" cy="0" r="24" fill="#16271e"/>
+        <!-- rosette leaves -->
+        <g fill="#3aa37a">
+          <ellipse cx="0" cy="-10" rx="5.5" ry="11"/>
+          <ellipse cx="9" cy="-4" rx="5.5" ry="11" transform="rotate(60 9 -4)"/>
+          <ellipse cx="9" cy="5" rx="5.5" ry="11" transform="rotate(120 9 5)"/>
+          <ellipse cx="0" cy="10" rx="5.5" ry="11" transform="rotate(180 0 10)"/>
+          <ellipse cx="-9" cy="5" rx="5.5" ry="11" transform="rotate(240 -9 5)"/>
+          <ellipse cx="-9" cy="-4" rx="5.5" ry="11" transform="rotate(300 -9 -4)"/>
+        </g>
+        <g fill="#7dd47f" opacity=".8">
+          <ellipse cx="0" cy="-5" rx="3.2" ry="6.5"/>
+          <ellipse cx="5" cy="-2" rx="3.2" ry="6.5" transform="rotate(60 5 -2)"/>
+          <ellipse cx="5" cy="3" rx="3.2" ry="6.5" transform="rotate(120 5 3)"/>
+          <ellipse cx="0" cy="5" rx="3.2" ry="6.5" transform="rotate(180 0 5)"/>
+          <ellipse cx="-5" cy="3" rx="3.2" ry="6.5" transform="rotate(240 -5 3)"/>
+          <ellipse cx="-5" cy="-2" rx="3.2" ry="6.5" transform="rotate(300 -5 -2)"/>
+        </g>
+        <circle cx="0" cy="0" r="2.5" fill="#a8d96b"/>
+      </g>
+
+      <!-- ═══ FERN PLANT (far right) ═══ -->
+      <g transform="translate(1480 260)">
+        <circle cx="0" cy="0" r="38" fill="#16271e" stroke="#3aa37a" stroke-width=".8" opacity=".6"/>
+        <circle cx="0" cy="0" r="32" fill="#0e1c14"/>
+        <!-- fern fronds from above -->
+        <g stroke="#3aa37a" stroke-width="1.4" fill="none" opacity=".65">
+          <path d="M0 0 Q -4 -18 0 -26 Q 4 -18 0 0"/>
+          <path d="M0 0 Q 16 -9 24 -3 Q 16 3 0 0"/>
+          <path d="M0 0 Q 16 11 20 20 Q 9 16 0 0"/>
+          <path d="M0 0 Q -2 18 3 26 Q -4 18 0 0"/>
+          <path d="M0 0 Q -18 9 -24 5 Q -16 -2 0 0"/>
+          <path d="M0 0 Q -14 -13 -18 -22 Q -7 -14 0 0"/>
+        </g>
+        <g fill="#7dd47f" opacity=".45">
+          <ellipse cx="-3" cy="-16" rx="4" ry="2.2"/>
+          <ellipse cx="3" cy="-16" rx="4" ry="2.2"/>
+          <ellipse cx="16" cy="-3" rx="2.2" ry="4"/>
+          <ellipse cx="14" cy="13" rx="3" ry="3.5"/>
+          <ellipse cx="1" cy="18" rx="4" ry="2.5"/>
+          <ellipse cx="-16" cy="3" rx="2.2" ry="4"/>
+          <ellipse cx="-12" cy="-13" rx="3" ry="2.2"/>
+        </g>
+      </g>
+
+      <!-- ═══ COFFEE MUG (upper right, top-down circle) ═══ -->
+      <g transform="translate(1360 170)">
+        <!-- mug shadow -->
+        <ellipse cx="4" cy="4" rx="36" ry="36" fill="#0a140e" opacity=".25"/>
+        <!-- mug outer rim -->
+        <circle cx="0" cy="0" r="34" fill="#d99e4a"/>
+        <circle cx="0" cy="0" r="29" fill="#2a1810"/>
+        <circle cx="0" cy="0" r="26" fill="#3a2210"/>
+        <!-- latte art leaf -->
+        <g fill="#d99e4a" opacity=".35">
+          <ellipse cx="0" cy="-5" rx="3.5" ry="9"/>
+          <ellipse cx="-5" cy="-1" rx="3" ry="7" transform="rotate(-30 -5 -1)"/>
+          <ellipse cx="5" cy="-1" rx="3" ry="7" transform="rotate(30 5 -1)"/>
+          <ellipse cx="-3" cy="7" rx="2.5" ry="5.5" transform="rotate(-18 -3 7)"/>
+          <ellipse cx="3" cy="7" rx="2.5" ry="5.5" transform="rotate(18 3 7)"/>
+        </g>
+        <!-- handle -->
+        <path d="M32 -8 Q 50 0 32 8" fill="none" stroke="#d99e4a" stroke-width="5"/>
+        <!-- steam -->
+        <g class="balloon" data-amp="5" data-speed="8" data-phase="0" style="transform:translate(0px,-28px)">
+          <path d="M-7 -8 Q -3 -22 1 -8 Q 5 -22 9 -8" fill="none" stroke="#e9e4d0" stroke-width=".7" opacity=".12">
+            <animate attributeName="opacity" values=".12;.04;.12" dur="4s" repeatCount="indefinite"/>
+          </path>
+        </g>
+        <g class="balloon" data-amp="3" data-speed="10" data-phase="2" style="transform:translate(7px,-32px)">
+          <path d="M-4 -6 Q -1 -16 3 -6 Q 7 -18 11 -6" fill="none" stroke="#e9e4d0" stroke-width=".5" opacity=".08">
+            <animate attributeName="opacity" values=".08;.02;.08" dur="5s" repeatCount="indefinite"/>
+          </path>
+        </g>
+      </g>
+
+      <!-- ═══ PHONE (right area) ═══ -->
+      <g transform="translate(1310 400) rotate(5)">
+        <rect x="-28" y="-52" width="56" height="104" rx="7" fill="#0e1c14" stroke="#3aa37a" stroke-width=".8"/>
+        <rect x="-24" y="-45" width="48" height="90" rx="4" fill="#16271e"/>
+        <!-- notification LED -->
+        <circle cx="-14" cy="-36" r="2.2" fill="#7dd47f" opacity=".6">
+          <animate attributeName="opacity" values=".6;.15;.6" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <!-- screen lines -->
+        <rect x="-18" y="-26" width="36" height="2.5" rx="1" fill="#3aa37a" opacity=".25"/>
+        <rect x="-18" y="-18" width="28" height="2.5" rx="1" fill="#e9e4d0" opacity=".12"/>
+        <rect x="-18" y="-10" width="32" height="2.5" rx="1" fill="#e9e4d0" opacity=".1"/>
+        <!-- camera -->
+        <circle cx="0" cy="-48" r="2.8" fill="#0a140e" stroke="#3aa37a" stroke-width=".4" opacity=".4"/>
+      </g>
+
+      <!-- ═══ SOLAR PANEL CHARGER (far bottom-right) ═══ -->
+      <g transform="translate(1450 480) rotate(-5)">
+        <rect x="-42" y="-28" width="84" height="56" rx="3" fill="url(#solarGrid)" stroke="#3aa37a" stroke-width=".8"/>
+        <!-- USB cable -->
+        <path d="M0 28 Q 12 48 -18 65 Q -38 75 -28 95" fill="none" stroke="#3aa37a" stroke-width="1.5" opacity=".35"/>
+        <!-- charging LED -->
+        <circle cx="-36" cy="-22" r="2" fill="#7dd47f" opacity=".55">
+          <animate attributeName="opacity" values=".55;.15;.55" dur="2s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+
+      <!-- ═══ MOUSE + PAD (below laptop) ═══ -->
+      <g transform="translate(1200 510)">
+        <!-- mouse pad -->
+        <rect x="-48" y="-38" width="96" height="76" rx="6" fill="#0e1c14" stroke="#3aa37a" stroke-width=".4" opacity=".35"/>
+        <!-- mouse body (oval from above) -->
+        <ellipse cx="0" cy="0" rx="17" ry="26" fill="#16271e" stroke="#3aa37a" stroke-width=".8"/>
+        <!-- scroll wheel -->
+        <rect x="-2.5" y="-10" width="5" height="8" rx="2.5" fill="#3aa37a" opacity=".35"/>
+        <!-- button divider -->
+        <line x1="0" y1="-26" x2="0" y2="-3" stroke="#3aa37a" stroke-width=".4" opacity=".25"/>
+        <!-- DPI light -->
+        <circle cx="0" cy="5" r="1.5" fill="#7dd47f" opacity=".4"/>
+      </g>
+    </svg>
+
+    <!-- ░░ FRONT LAYER ░░ foreground items — headphones · cables · sticky notes ░░ -->
+    <svg class="layer-front" viewBox="0 0 1600 260" preserveAspectRatio="none"
+         style="height:30vh; min-height:160px;">
+      <defs>
+        <radialGradient id="deskEdgeGlow" cx=".5" cy="1">
+          <stop offset="0%" stop-color="#f5c06b" stop-opacity=".08"/>
+          <stop offset="100%" stop-color="#f5c06b" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- ═══ HEADPHONES (far left, draped) ═══ -->
+      <g transform="translate(65 100)">
+        <!-- headband arc -->
+        <path d="M-38 2 Q -40 -46 0 -52 Q 40 -46 38 2" fill="none" stroke="#1d3528" stroke-width="8" stroke-linecap="round"/>
+        <path d="M-38 2 Q -40 -46 0 -52 Q 40 -46 38 2" fill="none" stroke="#3aa37a" stroke-width=".8" opacity=".25"/>
+        <!-- left cup -->
+        <ellipse cx="-40" cy="8" rx="20" ry="26" fill="#16271e" stroke="#3aa37a" stroke-width=".7"/>
+        <ellipse cx="-40" cy="8" rx="13" ry="17" fill="#0e1c14"/>
+        <circle cx="-40" cy="8" r="5" fill="#1d3528" stroke="#3aa37a" stroke-width=".4"/>
+        <!-- right cup -->
+        <ellipse cx="40" cy="8" rx="20" ry="26" fill="#16271e" stroke="#3aa37a" stroke-width=".7"/>
+        <ellipse cx="40" cy="8" rx="13" ry="17" fill="#0e1c14"/>
+        <circle cx="40" cy="8" r="5" fill="#1d3528" stroke="#3aa37a" stroke-width=".4"/>
+        <!-- cable -->
+        <path d="M-40 34 Q -42 56 -28 76 Q -8 96 -18 125" fill="none" stroke="#3aa37a" stroke-width="1.4" opacity=".3"/>
+      </g>
+
+      <!-- ═══ USB CABLE (snaking across bottom) ═══ -->
+      <g opacity=".28">
+        <path d="M420 195 Q 520 168 620 188 Q 730 215 810 195 Q 900 172 960 190" fill="none" stroke="#3aa37a" stroke-width="2" stroke-linecap="round"/>
+        <!-- USB-C connector -->
+        <rect x="410" y="191" width="13" height="7" rx="2" fill="#3aa37a" opacity=".5"/>
+      </g>
+
+      <!-- ═══ STICKY NOTES (upper area) ═══ -->
+      <g transform="translate(210 28)">
+        <!-- note 1 (gold) -->
+        <g transform="rotate(-3)">
+          <rect x="0" y="0" width="52" height="52" rx="2" fill="#f5c06b" opacity=".45"/>
+          <g opacity=".28">
+            <rect x="7" y="14" width="28" height="2" rx="1" fill="#0a140e"/>
+            <rect x="7" y="22" width="35" height="2" rx="1" fill="#0a140e"/>
+            <rect x="7" y="30" width="22" height="2" rx="1" fill="#0a140e"/>
+          </g>
+        </g>
+        <!-- note 2 (leaf, overlapping) -->
+        <g transform="translate(40 -6) rotate(4)">
+          <rect x="0" y="0" width="52" height="52" rx="2" fill="#7dd47f" opacity=".4"/>
+          <g opacity=".22">
+            <rect x="7" y="12" width="30" height="2" rx="1" fill="#0a140e"/>
+            <rect x="7" y="20" width="38" height="2" rx="1" fill="#0a140e"/>
+            <rect x="7" y="28" width="25" height="2" rx="1" fill="#0a140e"/>
+          </g>
+        </g>
+        <!-- note 3 (ember accent, small) -->
+        <g transform="translate(18 48) rotate(6)">
+          <rect x="0" y="0" width="42" height="42" rx="2" fill="#ff8c42" opacity=".3"/>
+        </g>
+      </g>
+
+      <!-- ═══ SMALL ITEMS ═══ -->
+
+      <!-- USB drive -->
+      <g transform="translate(1060 78) rotate(-12)">
+        <rect x="0" y="0" width="28" height="11" rx="2" fill="#16271e" stroke="#3aa37a" stroke-width=".5"/>
+        <rect x="26" y="2" width="7" height="7" rx="1" fill="#3aa37a" opacity=".45"/>
+        <circle cx="8" cy="5.5" r="1.5" fill="#7dd47f" opacity=".45"/>
+      </g>
+
+      <!-- paper clip -->
+      <g transform="translate(490 115) rotate(22)">
+        <path d="M0 0 Q 0 -14 5 -14 Q 10 -14 10 0 Q 10 18 5 18 Q 0 18 0 5" fill="none" stroke="#d99e4a" stroke-width="1.1" opacity=".3"/>
+      </g>
+
+      <!-- tiny cactus in pot -->
+      <g transform="translate(1500 115)">
+        <rect x="-10" y="0" width="20" height="14" rx="2" fill="#d99e4a" opacity=".45"/>
+        <rect x="-6" y="-16" width="12" height="18" rx="5" fill="#3aa37a"/>
+        <rect x="-9" y="-10" width="3.5" height="7" rx="1.8" fill="#3aa37a" transform="rotate(-28 -9 -10)"/>
+        <rect x="5" y="-14" width="3.5" height="9" rx="1.8" fill="#3aa37a" transform="rotate(22 5 -14)"/>
+        <!-- tiny spines -->
+        <g stroke="#e9e4d0" stroke-width=".3" opacity=".35">
+          <line x1="0" y1="-16" x2="0" y2="-20"/>
+          <line x1="-3" y1="-12" x2="-6" y2="-14"/>
+          <line x1="3" y1="-12" x2="6" y2="-14"/>
+        </g>
+      </g>
+
+      <!-- coaster ring mark on desk -->
+      <g transform="translate(720 155)">
+        <circle cx="0" cy="0" r="22" fill="none" stroke="#d99e4a" stroke-width=".8" opacity=".1"/>
+        <circle cx="0" cy="0" r="20" fill="none" stroke="#d99e4a" stroke-width=".4" opacity=".06"/>
+      </g>
+
+      <!-- rubber band -->
+      <g transform="translate(1155 168) rotate(-18)">
+        <ellipse cx="0" cy="0" rx="14" ry="7" fill="none" stroke="#ff8c42" stroke-width="1.4" opacity=".22"/>
+      </g>
+
+      <!-- ambient bottom edge glow -->
+      <ellipse cx="800" cy="260" rx="800" ry="80" fill="url(#deskEdgeGlow)"/>
+    </svg>
+
+  </div>
+
+  <div class="hero-grid">
+    <div style="color: red">
+      <span class="hero-eyebrow"><span class="led"></span><span data-i18n="hero_eyebrow">HOMELAB ONLINE · CS PORTFOLIO · v26.05</span></span>
+      <h1>Josua<br/>Martinez<br/><span class="accent" data-i18n="hero_accent">construyendo, aprendiendo y mejorando</span></h1>
+     <p class="hero-sub" style="color: rgb(255, 51, 0)" data-i18n="hero_sub">Email:martinez.roman.josua@gmail.com
+ <br/>
+
+31 Julio 1995<br/>
+
+Ponce, PR</p><br/>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#work"><span data-i18n="hero_cta1">Ver Proyectos</span> <span aria-hidden="true">→</span></a>
+        <a class="btn" href="#resume"><span data-i18n="hero_cta2">Leer résumé</span></a>
+      </div>
+    </div>
+<!--Server rack -->
+    <div class="terminal" id="terminal" aria-hidden="true">
+      <div class="term-bar">
+        <span class="dots"><i></i><i></i><i></i></span>
+        <span class="title">josua@rack‑01 — zsh — 80×24</span>
+      </div>
+      <div class="term-body" id="termbody"></div>
+    </div>
+  </div>
+
+  <div class="scroll-hint"><span>scroll</span><span class="line"></span></div>
+</section>
+
+
+<!-- INTRODUCTION -->
+<section class="scene" id="intro" data-screen-label="02 Introduction">
+  <div class="container">
+    <div class="section-hd">
+      <span class="section-num">/ 02</span>
+      <h2><span data-i18n="s02_pre">Una</span> <em data-i18n="s02_em">introducion.</em></h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="intro-grid">
+      <div class="intro-body reveal">
+        <span class="placeholder" data-i18n="intro_placeholder">“Sigue hacia adelante, sigue aprendiendo y nunca te conformes con la versión de ayer. Cada experiencia, error y logro es parte del proceso de convertirte en alguien mejor.”</span>
+        <p data-i18n="intro_p1">Soy un profesional dedicado y adaptable, con experiencia trabajando junto a equipos estratégicos para entregar contenido de alta calidad de manera eficiente y efectiva. Poseo sólidas habilidades en logística de preproducción, planificación detallada y gestión de recursos, lo que me ha permitido apoyar proyectos que requieren organización, coordinación y cumplimiento de plazos. Actualmente me encuentro cursando estudios en Ciencias de la Computación para continuar fortaleciendo mis conocimientos técnicos y ampliar mi capacidad de aportar tanto en entornos creativos como tecnológicos. A través de mi experiencia coordinando planes de producción y gestionando recursos de personal, he desarrollado una ética de trabajo disciplinada, habilidades de resolución de problemas y la capacidad de desempeñarme eficazmente bajo presión.</p>
+        <p data-i18n="intro_p2">Pienso en cada proyecto como un pequeño ecosistema: debe funcionar de manera fluida, aportar más de lo que consume y ser un placer de mantener.</p>
+      </div>
+
+      <aside class="factcard reveal">
+        <div class="row"><span class="k">Based in</span><span class="v">Puerto Rico</span></div>
+        <div class="row"><span class="k">Studying</span><span class="v">Ciencias de Computadora</span></div>
+        <div class="row"><span class="k">Currently</span><span class="v">Buscando oportunidades</span></div>
+        <div class="row"><span class="k">Off‑hours</span><span class="v">Coding· Game dev</span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+<!-- SKILLS -->
+<section class="scene" id="skills" data-screen-label="03 Skills">
+  <div class="container">
+    <div class="section-hd">
+      <span class="section-num">/ 03</span>
+      <h2><span data-i18n="s03_pre">Lenguajes &amp;</span> <em data-i18n="s03_em">Herramientas</em></h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="rack reveal" id="rack">
+        <div class="u">
+          <span class="leds"><i class="on-g"></i><i class="on-g"></i><i class="on-a"></i></span>
+          <span class="label">srv-01 · web · php/js</span><span class="grow"></span>
+          <span class="meter"><span style="width:64%"></span></span>
+        </div>
+        <div class="u">
+          <span class="leds"><i class="on-g"></i><i class="on-g"></i><i class="on-g"></i></span>
+          <span class="label">srv-02 · python · ml</span><span class="grow"></span>
+          <span class="meter"><span style="width:48%"></span></span>
+        </div>
+        <div class="u">
+          <span class="leds"><i class="on-g"></i><i class="on-a"></i><i></i></span>
+          <span class="label">srv-03 · c++ / c# · build</span><span class="grow"></span>
+          <span class="meter"><span style="width:72%"></span></span>
+        </div>
+        <div class="u tall">
+          <div class="screen">
+            <div class="bars">
+              <i style="height:30%"></i><i style="height:55%"></i><i style="height:40%"></i>
+              <i style="height:70%"></i><i style="height:35%"></i><i style="height:60%"></i>
+              <i style="height:48%"></i><i style="height:75%"></i><i style="height:50%"></i>
+              <i style="height:42%"></i><i style="height:65%"></i><i style="height:38%"></i>
+              <i style="height:58%"></i><i style="height:33%"></i><i style="height:68%"></i>
+              <i style="height:44%"></i><i style="height:72%"></i><i style="height:52%"></i>
+            </div>
+          </div>
+        </div>
+        <div class="u">
+          <span class="leds"><i class="on-g"></i><i class="on-g"></i><i class="on-r"></i></span>
+          <span class="label">srv-04 · unity · build</span><span class="grow"></span>
+          <span class="meter"><span style="width:81%"></span></span>
+        </div>
+        <div class="u">
+          <span class="leds"><i class="on-g"></i><i class="on-a"></i><i class="on-g"></i></span>
+          <span class="label">nas-01 · cold storage</span><span class="grow"></span>
+          <span class="meter"><span style="width:35%"></span></span>
+        </div>
+        <div class="u">
+          <span class="leds"><i class="on-g"></i><i class="on-g"></i><i class="on-g"></i></span>
+          <span class="label">pi · sensors · garden</span><span class="grow"></span>
+          <span class="meter"><span style="width:22%"></span></span>
+        </div>
+        <div class="vents"></div>
+      </div>
+
+      <div class="skill-groups reveal">
+        <div class="skill-group">
+          <h4 data-i18n="sk_lang">Languages</h4>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">PHP</span>
+            <span class="chip gold">C++</span>
+            <span class="chip gold">C#</span>
+            <span class="chip">SQL</span>
+            <span class="chip">HTML / CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4 data-i18n="sk_fw">Frameworks &amp; runtime</h4>
+          <div class="chips">
+            <span class="chip">React</span>
+            <span class="chip">Node.js</span>
+            <span class="chip gold">Unity</span>
+            <span class="chip">.NET</span>
+            <span class="chip">Flutter</span>
+            <span class="chip">REST APIs</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4 data-i18n="sk_infra">Infra &amp; tools</h4>
+          <div class="chips">
+            <span class="chip">Linux</span>
+            <span class="chip">Docker</span>
+            <span class="chip">Git</span>
+            <span class="chip gold">Networking</span>
+            <span class="chip">MySQL</span>
+           
+          </div>
+        </div>
+        <div class="skill-group">
+          <h4 data-i18n="sk_concepts">Concepts</h4>
+          <div class="chips">
+            <span class="chip">Distributed systems</span>
+            <span class="chip">Data structures</span>
+            <span class="chip">OOP</span>
+            <span class="chip gold">AI / heuristics</span>
+            <span class="chip">Game design</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- WORK -->
+<section class="scene" id="work" data-screen-label="04 Experiencia y proyectos">
+  <div class="container">
+    <div class="section-hd">
+      <span class="section-num">/ 04</span>
+      <h2><span data-i18n="s04_pre">Experiencia y</span> <em data-i18n="s04_em">proyectos.</em></h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="proj-grid">
+      <article class="proj span-3 reveal">
+        <span class="proj-no">01 · Aplicación web</span>
+        <div class="proj-glyph">
+          <!-- planner glyph -->
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--leaf)">
+            <rect x="3" y="4" width="18" height="17" rx="2"/>
+            <path d="M3 9h18"/>
+            <path d="M8 2v4M16 2v4"/>
+            <path d="M7 14l2 2 4-4"/>
+          </svg>
+        </div>
+        <h3 data-i18n="proj1_t">Organizador de trabajos estudiantiles</h3>
+        <p data-i18n="proj1_d">Un planificador para cursos, fechas límite y sesiones de estudio, creado para poner orden en un semestre cargado. Da seguimiento a las asignaciones, resalta lo próximo por entregar y convierte el prontuario en un horario confiable.</p>
+        <div class="tags"><span>full‑stack</span><span>autenticación</span><span>horarios</span></div>
+      </article>
+
+      <article class="proj span-3 reveal">
+        <span class="proj-no">02 · Agente de IA</span>
+        <div class="proj-glyph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)">
+            <rect x="3" y="6" width="14" height="14" rx="2"/>
+            <rect x="7" y="3" width="14" height="14" rx="2"/>
+            <path d="M11 10h6M11 14h4"/>
+          </svg>
+        </div>
+        <h3 data-i18n="proj2_t">Briscas — Oponente de cartas con IA</h3>
+        <p data-i18n="proj2_d">Un agente que juega Briscas, el clásico juego español de bazas. Lleva control de las cartas restantes, evalúa el valor del triunfo frente al ritmo de juego y puede engañar razonablemente bien a oponentes humanos. Un ejercicio de IA de juegos compacta y hecha a mano.</p>
+        <div class="tags"><span>IA de juegos</span><span>heurísticas</span><span>búsqueda de estados</span></div>
+      </article>
+
+      <article class="proj span-2 reveal">
+        <span class="proj-no">03 · Móvil</span>
+        <div class="proj-glyph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--leaf)">
+            <path d="M12 21s-7-4.5-7-11a5 5 0 0 1 7-4 5 5 0 0 1 7 4c0 6.5-7 11-7 11z" opacity=".3"/>
+            <path d="M12 22V8M12 8c-2 0-4-2-4-5 2 0 4 2 4 5zM12 8c2 0 4-2 4-5-2 0-4 2-4 5z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="proj3_t">Aplicación de jardinería</h3>
+        <p data-i18n="proj3_d">Un rastreador de cuidado planta por planta con horarios de riego, registros de exposición al sol y una pequeña biblioteca de plantas compañeras.</p>
+        <div class="tags"><span>móvil</span><span>local-first</span></div>
+      </article>
+
+      <article class="proj span-2 reveal">
+        <span class="proj-no">04 · Juego</span>
+        <div class="proj-glyph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)">
+            <rect x="2" y="8" width="20" height="10" rx="5"/>
+            <path d="M7 13h2M8 12v2M15 12.5h.01M17.5 13.5h.01"/>
+          </svg>
+        </div>
+        <h3 data-i18n="proj4_t">Desarrollo de juegos en Unity</h3>
+        <p data-i18n="proj4_d">Una colección en crecimiento de pequeños prototipos en Unity: sistemas de movimiento, árboles de diálogo y shaders personalizados. Aquí aprendo entregando la versión más pequeña que ya se pueda jugar.</p>
+        <div class="tags"><span>Unity</span><span>C#</span><span>shaders</span></div>
+      </article>
+
+      <article class="proj span-2 reveal">
+        <span class="proj-no">05 · Datos cívicos</span>
+        <div class="proj-glyph">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ember)">
+            <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>
+          </svg>
+        </div>
+        <h3 data-i18n="proj5_t">Rastreador de apagones</h3>
+        <p data-i18n="proj5_d">Recopila y visualiza datos de interrupciones del servicio eléctrico, organiza la cantidad de clientes por región y señala incidentes prolongados. Una herramienta pensada para los residentes, no para comunicados de prensa.</p>
+        <div class="tags"><span>visualización de datos</span><span>scraping</span><span>mapas</span></div>
+      </article>
+    </div>
+
+    <div class="xp-row reveal">
+      <div class="when">XP · PUESTOS</div>
+      <div>
+        <h3>[ Puestos ] · [ Lugar ]</h3>
+        <p><em style="font-family:var(--serif); color:var(--gold);">[ Descripción ]</em> — información</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- RESUME -->
+<section class="scene" id="resume" data-screen-label="05 Currículum">
+  <div class="container">
+    <div class="section-hd">
+      <span class="section-num">/ 05</span>
+      <h2><span data-i18n="s05_pre">Currículum y</span> <em data-i18n="s05_em">contacto.</em></h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="resume-card reveal">
+      <div>
+        <h3><span data-i18n="res_h3_pre">Conoce más,</span> <em data-i18n="res_h3_em">si deseas conocer mas.</em></h3>
+        <p data-i18n="res_p">Descarga mi currículum en formato DOCX o visita mi LinkedIn para conocer más sobre mi experiencia.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="Resume-Josua-Martinez.docx" id="resume-link"><span data-i18n="res_cta1">Descargar currículum</span> <span aria-hidden="true">↓</span></a>
+          <a class="btn" href="https://www.linkedin.com/in/josua-martinez/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="resume-meta">
+        <div><span class="k" data-i18n="res_name_k">name      </span> <span class="v">Josua Martinez</span></div>
+        <div><span class="k" data-i18n="res_role_k">role      </span> <span class="v" data-i18n="res_role_v">CS Student</span></div>
+        <div><span class="k" data-i18n="res_focus_k">focus     </span> <span class="v" data-i18n="res_focus_v">Distributed systems</span></div>
+        <div><span class="k">linkedin  </span> <span class="v">/in/josua‑martinez</span></div>
+        <div><span class="k" data-i18n="res_status_k">status    </span> <span class="v" style="color:var(--leaf)" data-i18n="res_status_v">● Buscando oportunidades</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div data-i18n="footer_copy">© 2026 Josua Martinez · hecho en PR</div>
+  <div><a href="https://www.linkedin.com/in/josua-martinez/" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+</footer>
+
+<!-- ──────────────────── scripts ──────────────────── -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script>
+/* ──────────────────────────────────────────────────────────────
+   plain JS: terminal typing, parallax, nav active, day/night,
+   turbine spin, blinking LEDs. all small, no framework needed.
+────────────────────────────────────────────────────────────── */
+
+(() => {
+  // ── terminal typing intro ──────────────────────────────────
+  const termBody = document.getElementById('termbody');
+  const lines = [
+    { t: 'cmd',  s: 'whoami', delay: 380 },
+    { t: 'out',  s: 'josua martinez · cs student · sysadmin of one' },
+    { t: 'cmd',  s: 'cat /etc/motd', delay: 240 },
+    { t: 'motd' },
+    { t: 'cmd',  s: 'systemctl status portfolio.service', delay: 240 },
+    { t: 'sys' },
+    { t: 'cmd',  s: 'scroll --to "introduction"', delay: 180, last: true }
+  ];
+
+  function el(cls, html) {
+    const d = document.createElement('div');
+    d.className = cls;
+    if (html != null) d.innerHTML = html;
+    return d;
+  }
+  function prompt() {
+    return `<span class="term-prompt">josua@rack-01</span>:<span class="term-path">~</span>$ `;
+  }
+
+  let li = 0;
+  let charI = 0;
+  let active;
+  let caret;
+
+  function nextLine() {
+    if (li >= lines.length) return;
+    const line = lines[li];
+    if (line.t === 'cmd') {
+      active = el('term-line');
+      active.innerHTML = prompt();
+      const cmdSpan = document.createElement('span');
+      cmdSpan.className = 'term-cmd';
+      active.appendChild(cmdSpan);
+      caret = document.createElement('span');
+      caret.className = 'caret';
+      active.appendChild(caret);
+      termBody.appendChild(active);
+      charI = 0;
+      typeChar(line, cmdSpan);
+    } else if (line.t === 'out') {
+      const o = el('term-line term-out', line.s);
+      termBody.appendChild(o);
+      li++; setTimeout(nextLine, 320);
+    } else if (line.t === 'motd') {
+      const block = el('term-line term-out');
+      block.innerHTML =
+        `<span class="term-key">┌─</span> <span class="term-str">welcome back, jm</span>\n` +
+        `<span class="term-key">│ </span> uptime ······ <span class="term-str">∞ semesters</span>\n` +
+        `<span class="term-key">│ </span> rack ········ <span class="term-str">7 nodes · 1 garden</span>\n` +
+        `<span class="term-key">│ </span> mode ········ <span class="term-str">build · learn · plant</span>\n` +
+        `<span class="term-key">└─</span>`;
+      termBody.appendChild(block);
+      li++; setTimeout(nextLine, 480);
+    } else if (line.t === 'sys') {
+      const o = el('term-line term-out');
+      o.innerHTML =
+        `● <span class="term-str">portfolio.service</span> — solarpunk homelab portfolio\n` +
+        `   Loaded: <span class="term-str">loaded</span> (~/portfolio/index.html)\n` +
+        `   Active: <span class="term-prompt">active (running)</span> since just now\n` +
+        `   Status: <span class="term-key">all systems green ◯ ◯ ◯</span>`;
+      termBody.appendChild(o);
+      li++; setTimeout(nextLine, 420);
+    }
+  }
+
+  function typeChar(line, span) {
+    if (charI >= line.s.length) {
+      // remove caret if not last
+      if (!line.last && caret) caret.remove();
+      li++;
+      setTimeout(nextLine, line.delay || 200);
+      return;
+    }
+    span.textContent += line.s[charI++];
+    const ch = line.s[charI - 1];
+    const jitter = ch === ' ' ? 30 : (Math.random() * 50 + 22);
+    setTimeout(() => typeChar(line, span), jitter);
+  }
+
+  setTimeout(nextLine, 700);
+
+
+  // ── parallax (subtle) ──────────────────────────────────────
+  const hero = document.querySelector('.hero');
+  function onScroll() {
+    const y = window.scrollY;
+    const limit = window.innerHeight * 1.2;
+    const t = Math.min(y / limit, 1);
+    hero.style.setProperty('--py-back',  `${-y * 0.06}px`);
+    hero.style.setProperty('--py-mid',   `${-y * 0.16}px`);
+    hero.style.setProperty('--py-front', `${-y * 0.28}px`);
+
+    // active nav
+    const sections = document.querySelectorAll('section[id]');
+    let cur = '';
+    sections.forEach(s => {
+      const top = s.offsetTop - 140;
+      if (window.scrollY >= top) cur = s.id;
+    });
+    document.querySelectorAll('.nav a.nav-link').forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+
+  // ── turbine spin + balloon drift (CSS rotation via rAF) ───
+  const blades = document.querySelectorAll('.turbine-blades');
+  const speeds = Array.from(document.querySelectorAll('.turbine')).map(t => parseFloat(t.dataset.speed) || 2);
+  const balloons = Array.from(document.querySelectorAll('.balloon')).map(b => {
+    const m = (b.style.transform || '').match(/translate\((-?\d+(?:\.\d+)?)px,\s*(-?\d+(?:\.\d+)?)px\)/);
+    return {
+      el: b,
+      x: m ? parseFloat(m[1]) : 0,
+      y: m ? parseFloat(m[2]) : 0,
+      amp: parseFloat(b.dataset.amp) || 10,
+      speed: parseFloat(b.dataset.speed) || 10,
+      phase: parseFloat(b.dataset.phase) || 0,
+    };
+  });
+  let rot = 0;
+  let t0 = performance.now();
+  function spin(now) {
+    const dt = (now - t0) / 1000;
+    if (!document.body.classList.contains('no-spin')) {
+      rot += 1;
+      blades.forEach((b, i) => {
+        b.setAttribute('transform', `rotate(${rot * (speeds[i] || 2)})`);
+      });
+    }
+    balloons.forEach(b => {
+      const dx = Math.sin((dt + b.phase) / b.speed) * 30;
+      const dy = Math.cos((dt + b.phase) / b.speed * 0.7) * b.amp;
+      b.el.style.transform = `translate(${b.x + dx}px, ${b.y + dy}px)`;
+    });
+    requestAnimationFrame(spin);
+  }
+  requestAnimationFrame(spin);
+
+
+  // ── rack LED blink ─────────────────────────────────────────
+  const leds = document.querySelectorAll('.rack .leds i');
+  setInterval(() => {
+    leds.forEach(l => {
+      if (Math.random() < 0.12) {
+        l.classList.toggle('on-g');
+      }
+    });
+  }, 700);
+
+
+  // ── reveal-on-scroll ───────────────────────────────────────
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(r => io.observe(r));
+
+
+  // ── language toggle (EN / ES) ────────────────────────────────
+  const langBtn = document.getElementById('lang-btn');
+  let currentLang = localStorage.getItem('jm-lang') || 'es';
+
+  const i18n = {
+    nav_home:    { en: 'Home', es: 'Inicio' },
+    nav_intro:   { en: 'Introduction', es: 'Introducción' },
+    nav_skills:  { en: 'Skills', es: 'Habilidades' },
+    nav_work:    { en: 'Experience & Projects', es: 'Experiencia y Proyectos' },
+    nav_resume:  { en: 'Resume', es: 'Currículum' },
+
+    hero_eyebrow:{ en: 'HOMELAB ONLINE · CS PORTFOLIO · v26.05', es: 'HOMELAB EN LÍNEA · PORTAFOLIO CS · v26.05' },
+    hero_accent: { en: 'building quiet, green systems.', es: 'construyendo sistemas silenciosos y sostenibles.' },
+    hero_sub:    { en: 'CS student building distributed systems & homelab infrastructure — somewhere between the server rack and the rooftop garden.', es: 'Estudiante de Ciencias de la Computación que desarrolla sistemas distribuidos e infraestructura homelab — entre el rack de servidores y el jardín en la azotea.' },
+    hero_cta1:   { en: 'View projects', es: 'Ver proyectos' },
+    hero_cta2:   { en: 'Read résumé', es: 'Leer currículum' },
+
+    s02_pre:     { en: 'An', es: 'Una' },
+    s02_em:      { en: 'introduction.', es: 'introducción.' },
+    intro_placeholder: { en: '[ Insert intro paragraph here ]', es: '[ Escriba una introducción profesional aquí ]' },
+    intro_p1:    { en: "A few sentences about who I am, where I'm studying, and what pulls me toward computer science — the kind of problems I like to sit with, the things I've built, and the corners of the field I'm curious about next.", es: 'Soy un profesional dedicado y adaptable, con experiencia colaborando con equipos estratégicos para entregar contenido de alta calidad de forma eficiente y efectiva. Cuento con sólidas destrezas en logística de preproducción, planificación detallada y gestión de recursos, lo que me ha permitido apoyar proyectos que exigen organización, coordinación y cumplimiento de plazos. Actualmente curso estudios en Ciencias de la Computación para seguir fortaleciendo mis conocimientos técnicos y ampliar mi capacidad de aportar en entornos creativos y tecnológicos. A partir de mi experiencia coordinando planes de producción y administrando recursos de personal, he desarrollado una ética de trabajo disciplinada, habilidades para resolver problemas y la capacidad de desempeñarme con eficacia bajo presión.' },
+    intro_p2:    { en: 'I think of every project like a small ecosystem: it should run quietly, give more than it takes, and be a pleasure to maintain.', es: 'Concibo cada proyecto como un pequeño ecosistema: debe operar con fluidez, aportar más de lo que consume y resultar agradable de mantener.' },
+
+    s03_pre:     { en: 'Tools &', es: 'Herramientas y' },
+    s03_em:      { en: 'stack.', es: 'tecnologías.' },
+    sk_lang:     { en: 'Languages', es: 'Lenguajes' },
+    sk_fw:       { en: 'Frameworks & runtime', es: 'Frameworks y runtime' },
+    sk_infra:    { en: 'Infra & tools', es: 'Infra y herramientas' },
+    sk_concepts: { en: 'Concepts', es: 'Conceptos' },
+
+    s04_pre:     { en: 'Experience &', es: 'Experiencia y' },
+    s04_em:      { en: 'projects.', es: 'proyectos.' },
+    proj1_t:     { en: 'Student Work Organizer', es: 'Organizador de trabajos estudiantiles' },
+    proj1_d:     { en: 'A planner for coursework, deadlines and study sessions — built to take the chaos out of a heavy semester. Tracks assignments, surfaces what\u2019s due next, and turns a syllabus into a schedule you can trust.', es: 'Un planificador para tareas, fechas límite y sesiones de estudio — hecho para ordenar el caos de un semestre pesado. Rastrea tareas, muestra lo que viene y convierte un programa en un horario confiable.' },
+    proj2_t:     { en: 'Briscas — AI card opponent', es: 'Briscas — Oponente de cartas con IA' },
+    proj2_d:     { en: 'An agent that plays Briscas, the classic Spanish trick\u2011taking game. Tracks remaining cards, weighs trump value vs. tempo, and bluffs reasonably well against humans. A study in compact, hand\u2011rolled game AI.', es: 'Un agente que juega Briscas, el clásico juego español de bazas. Rastrea cartas restantes, evalúa triunfo vs. tempo y farolea razonablemente bien contra humanos. Un estudio en IA de juegos compacta y artesanal.' },
+    proj3_t:     { en: 'Gardening App', es: 'Aplicación de jardinería' },
+    proj3_d:     { en: 'Plant\u2011by\u2011plant care tracker with watering schedules, sun\u2011exposure logs and a small library of companion plants.', es: 'Rastreador de cuidado planta por planta con horarios de riego, registros de exposición solar y una biblioteca de plantas compañeras.' },
+    proj4_t:     { en: 'Unity Game Dev', es: 'Desarrollo de juegos en Unity' },
+    proj4_d:     { en: 'A growing collection of small Unity prototypes — movement systems, dialogue trees, custom shaders. Where I learn by shipping the smallest playable thing.', es: 'Una colección en crecimiento de pequeños prototipos en Unity: sistemas de movimiento, árboles de diálogo y shaders personalizados. Aquí aprendo entregando la versión más pequeña que ya se pueda jugar.' },
+    proj5_t:     { en: 'Power Outage Tracker', es: 'Rastreador de apagones' },
+    proj5_d:     { en: 'Scrapes & visualizes utility outage data, maps customer counts by region, and flags long\u2011running incidents. A tool for residents, not press releases.', es: 'Recopila y visualiza datos de cortes, mapea clientes por región y señala incidentes prolongados. Una herramienta para residentes, no comunicados de prensa.' },
+
+    s05_pre:     { en: 'Résumé &', es: 'Currículum y' },
+    s05_em:      { en: 'contact.', es: 'contacto.' },
+    res_h3_pre:  { en: 'The one\u2011pager,', es: 'El resumen,' },
+    res_h3_em:   { en: 'if you want it.', es: 'si lo quieres.' },
+    res_p:       { en: 'Two pages of the same story this site tells, but folded neat for a printer. Hit the button — or grab my LinkedIn for the live version.', es: 'Dos páginas de la misma historia que cuenta este sitio, dobladas para una impresora. Pulsa el botón — o visita mi LinkedIn para la versión en vivo.' },
+    res_cta1:    { en: 'Download résumé (PDF)', es: 'Descargar currículum (PDF)' },
+    res_name_k:  { en: 'name      ', es: 'nombre    ' },
+    res_role_k:  { en: 'role      ', es: 'rol       ' },
+    res_role_v:  { en: 'CS Student · Builder', es: 'Estudiante CS · Constructor' },
+    res_focus_k: { en: 'focus     ', es: 'enfoque   ' },
+    res_focus_v: { en: 'Distributed sys · Homelab', es: 'Sistemas dist. · Homelab' },
+    res_status_k:{ en: 'status    ', es: 'estado    ' },
+    res_status_v:{ en: '● Open to internships', es: '● Abierto a pasantías' },
+
+    footer_copy: { en: '© 2026 Josua Martinez · grown on a homelab in the city.', es: '© 2026 Josua Martinez · cultivado en un homelab en la ciudad.' },
+  };
+
+  function applyLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[key] && i18n[key][lang]) {
+        el.textContent = i18n[key][lang];
+      }
+    });
+    langBtn.textContent = lang.toUpperCase();
+    localStorage.setItem('jm-lang', lang);
+    document.documentElement.lang = lang;
+  }
+
+  langBtn.addEventListener('click', () => {
+    applyLang(currentLang === 'en' ? 'es' : 'en');
+  });
+
+  // apply saved language on load
+  if (currentLang !== 'en') applyLang(currentLang);
+
+
+  // ── day/night toggle ───────────────────────────────────────
+  const root = document.documentElement;
+  const dn = document.getElementById('daynight');
+  const dnIcon = document.getElementById('dn-icon');
+  const sunPath = `<circle cx="12" cy="12" r="4"/>
+                   <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>`;
+  const moonPath = `<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>`;
+
+  const saved = localStorage.getItem('jm-theme');
+  if (saved) root.setAttribute('data-theme', saved);
+  syncIcon();
+
+  function syncIcon() {
+    const isDay = root.getAttribute('data-theme') === 'day';
+    dnIcon.innerHTML = isDay ? sunPath : moonPath;
+  }
+  dn.addEventListener('click', () => {
+    const isDay = root.getAttribute('data-theme') === 'day';
+    if (isDay) root.removeAttribute('data-theme');
+    else       root.setAttribute('data-theme', 'day');
+    localStorage.setItem('jm-theme', root.getAttribute('data-theme') || 'night');
+    syncIcon();
+  });
+
+})();
+</script>
+
+<!-- tweaks panel: React + Babel -->
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks.jsx"></script>
+
+</body>
+</html>
