@@ -168,9 +168,9 @@
     transition: background .8s;
   }
   html[data-theme="day"] .sky-grad {
-    background: radial-gradient(140% 80% at 70% 5%, rgba(245,192,107,.55), transparent 60%),
-                radial-gradient(120% 60% at 20% 30%, rgba(127,200,180,.30), transparent 70%),
-                linear-gradient(180deg, #f6e9c3 0%, #efdfb8 50%, #e8d8aa 100%);
+    background: radial-gradient(140% 80% at 70% 8%, rgba(255,235,170,.75), transparent 65%),
+                radial-gradient(120% 60% at 20% 25%, rgba(127,200,180,.35), transparent 70%),
+                linear-gradient(180deg, #f9edd0 0%, #f0e3bb 45%, #e6d9a8 100%);
   }
 
   /* stars */
@@ -192,20 +192,44 @@
   /* sun / moon */
   .celestial {
     position: absolute;
-    right: 8vw; top: 18vh;
-    width: 140px; height: 140px;
+    right: 8vw; top: 14vh;
+    width: 160px; height: 160px;
     border-radius: 50%;
     transition: all .8s ease;
   }
   .celestial.sun {
-    background: radial-gradient(circle at 35% 35%, #ffe6a8, var(--gold) 55%, var(--gold-deep) 100%);
-    box-shadow: 0 0 80px rgba(245,192,107,.5), 0 0 200px rgba(245,192,107,.3);
+    background: radial-gradient(circle at 38% 38%, #fff9e6, #ffe6a8 30%, var(--gold) 60%, var(--gold-deep) 100%);
+    box-shadow: 0 0 100px rgba(245,192,107,.6), 
+                0 0 200px rgba(245,192,107,.35),
+                0 0 300px rgba(245,192,107,.15);
     opacity: 0;
   }
+  .celestial.sun::before {
+    content: "";
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(245,192,107,.12), transparent 70%);
+    animation: sunPulse 8s ease-in-out infinite;
+  }
+  @keyframes sunPulse {
+    0%, 100% { transform: scale(1); opacity: .8; }
+    50% { transform: scale(1.15); opacity: .4; }
+  }
   .celestial.moon {
-    background: radial-gradient(circle at 35% 35%, #f6f0d8, #d8d0b0 50%, #a99f7a 100%);
-    box-shadow: 0 0 60px rgba(233,228,208,.25);
+    background: radial-gradient(circle at 32% 35%, #e8e3cf, #d5cdb5 40%, #b8af95 75%, #8a826e 100%);
+    box-shadow: 0 0 70px rgba(233,228,208,.3),
+                0 0 140px rgba(233,228,208,.12);
     opacity: 1;
+  }
+  .celestial.moon::after {
+    content: "";
+    position: absolute;
+    top: 30%; left: 22%;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 30%, #c5bda5, #a39a82);
+    box-shadow: 38px 24px 0 -2px rgba(165,154,130,.4),
+                -12px 42px 0 -4px rgba(165,154,130,.3);
   }
   html[data-theme="day"] .celestial.sun  { opacity: 1; }
   html[data-theme="day"] .celestial.moon { opacity: 0; }
@@ -684,26 +708,45 @@
   /* experience timeline below projects */
   .xp-row {
     margin-top: 70px;
+    padding: 32px;
+    background: var(--panel);
+    border: 1px solid var(--line-2);
+    border-left: 3px solid var(--leaf);
+    border-radius: 12px;
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: 40px;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .xp-row:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,.2);
   }
   @media (max-width: 700px) { .xp-row { grid-template-columns: 1fr; gap: 20px; } }
   .xp-row h3 {
     font-family: var(--display);
-    font-size: 22px; margin: 0;
+    font-size: 22px; margin: 0 0 6px;
     color: var(--text);
+  }
+  .xp-row .company {
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--leaf);
+    font-weight: 500;
+    margin-bottom: 4px;
   }
   .xp-row p {
     color: var(--text-soft);
     margin: 6px 0 0;
     max-width: 60ch;
     text-wrap: pretty;
+    font-size: 15px;
+    line-height: 1.6;
   }
   .xp-row .when {
     font-family: var(--mono);
     font-size: 12px;
-    color: var(--leaf);
+    color: var(--muted);
     letter-spacing: .06em;
   }
 
@@ -790,13 +833,11 @@
 <!-- nav -->
 <nav class="nav" id="nav">
   <div class="nav-brand"><span class="dot"></span><span>jm.</span></div>
-  <a class="nav-link" href="#home" data-i18n="nav_home">Inicio</a>
-  <a class="nav-link" href="#intro" data-i18n="nav_intro">Introducción</a>
-  <a class="nav-link" href="#skills" data-i18n="nav_skills">Habilidades</a>
+  <a class="nav-link" href="#home" data-i18n="nav_home">Home</a>
+  <a class="nav-link" href="#intro" data-i18n="nav_intro">Introduction</a>
+  <a class="nav-link" href="#skills" data-i18n="nav_skills">Skills</a>
   <a class="nav-link" href="#work" data-i18n="nav_work">Experiencia &amp; Proyectos</a>
   <a class="nav-link" href="#resume" data-i18n="nav_resume">Currículum</a>
-  
-  
 </nav>
 
 <!-- HERO -->
@@ -822,414 +863,16 @@
       </g>
     </svg>
 
-
-
-    <!-- ░░ BACK LAYER ░░ desk surface · mat · warm light pools ░░ -->
-    <svg class="layer-back" viewBox="0 0 1600 460" preserveAspectRatio="none"
-         style="height:54vh; min-height:300px;">
-      <defs>
-        <pattern id="woodGrain" width="120" height="460" patternUnits="userSpaceOnUse">
-          <rect width="120" height="460" fill="#16271e"/>
-          <line x1="18" y1="0" x2="15" y2="460" stroke="#1a2d22" stroke-width="2.5" opacity=".3"/>
-          <line x1="52" y1="0" x2="55" y2="460" stroke="#142319" stroke-width="1.2" opacity=".2"/>
-          <line x1="88" y1="0" x2="86" y2="460" stroke="#1a2d22" stroke-width="1.5" opacity=".18"/>
-          <line x1="105" y1="0" x2="107" y2="460" stroke="#142319" stroke-width=".8" opacity=".12"/>
-        </pattern>
-        <radialGradient id="lampGlow" cx=".35" cy=".3">
-          <stop offset="0%" stop-color="#f5c06b" stop-opacity=".14"/>
-          <stop offset="50%" stop-color="#f5c06b" stop-opacity=".04"/>
-          <stop offset="100%" stop-color="#f5c06b" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="screenGlow" cx=".65" cy=".45">
-          <stop offset="0%" stop-color="#7dd47f" stop-opacity=".10"/>
-          <stop offset="50%" stop-color="#7dd47f" stop-opacity=".03"/>
-          <stop offset="100%" stop-color="#7dd47f" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-
-      <!-- desk surface (dark wood) -->
-      <rect width="1600" height="460" fill="url(#woodGrain)"/>
-
-      <!-- desk mat (dark leather pad) -->
-      <rect x="240" y="20" width="1120" height="420" rx="10" fill="#0c1810"/>
-      <rect x="240" y="20" width="1120" height="420" rx="10" fill="none" stroke="#3aa37a" stroke-width=".5" opacity=".15"/>
-      <!-- stitching on mat -->
-      <line x1="252" y1="28" x2="252" y2="432" stroke="#3aa37a" stroke-width=".4" stroke-dasharray="4 6" opacity=".18"/>
-      <line x1="1348" y1="28" x2="1348" y2="432" stroke="#3aa37a" stroke-width=".4" stroke-dasharray="4 6" opacity=".18"/>
-
-      <!-- warm lamp glow pool -->
-      <ellipse cx="500" cy="200" rx="550" ry="320" fill="url(#lampGlow)"/>
-      <!-- screen light spill on desk -->
-      <ellipse cx="1040" cy="250" rx="380" ry="250" fill="url(#screenGlow)"/>
-
-      <!-- wood knot details -->
-      <ellipse cx="100" cy="300" rx="18" ry="8" fill="none" stroke="#1a2d22" stroke-width="1" opacity=".2"/>
-      <ellipse cx="1500" cy="120" rx="14" ry="6" fill="none" stroke="#1a2d22" stroke-width=".8" opacity=".15"/>
-    </svg>
-
-    <!-- ░░ MID LAYER ░░ desk items — laptop · notebook · plants · lamp ░░ -->
-    <svg class="layer-mid" viewBox="0 0 1600 620" preserveAspectRatio="none"
-         style="height:min(64vh, 540px); min-height:380px;">
-      <defs>
-        <pattern id="keyGrid" width="16" height="16" patternUnits="userSpaceOnUse">
-          <rect width="16" height="16" fill="#0e1c14"/>
-          <rect x="1" y="1" width="13" height="13" rx="2" fill="#16271e" stroke="#3aa37a" stroke-width=".3" opacity=".6"/>
-        </pattern>
-        <pattern id="notebookLines" width="200" height="12" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="11" x2="200" y2="11" stroke="#3aa37a" stroke-width=".4" opacity=".25"/>
-        </pattern>
-        <pattern id="solarGrid" width="14" height="12" patternUnits="userSpaceOnUse">
-          <rect width="14" height="12" fill="#0e1c14"/>
-          <line x1="7" y1="0" x2="7" y2="12" stroke="#3aa37a" stroke-width=".5" opacity=".5"/>
-          <line x1="0" y1="6" x2="14" y2="6" stroke="#3aa37a" stroke-width=".5" opacity=".5"/>
-        </pattern>
-        <radialGradient id="screenLight" cx=".5" cy=".5">
-          <stop offset="0%" stop-color="#7dd47f" stop-opacity=".25"/>
-          <stop offset="80%" stop-color="#7dd47f" stop-opacity=".05"/>
-          <stop offset="100%" stop-color="#7dd47f" stop-opacity="0"/>
-        </radialGradient>
-        <radialGradient id="mugSteamGrad" cx=".5" cy="1">
-          <stop offset="0%" stop-color="#e9e4d0" stop-opacity=".12"/>
-          <stop offset="100%" stop-color="#e9e4d0" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-
-      <!-- ═══ DESK LAMP (upper-left area) ═══ -->
-      <g transform="translate(380 120)">
-        <!-- lamp base (top-down circle) -->
-        <circle cx="0" cy="0" r="40" fill="#1d3528" stroke="#3aa37a" stroke-width=".6"/>
-        <circle cx="0" cy="0" r="34" fill="#16271e"/>
-        <circle cx="0" cy="0" r="6" fill="#1d3528" stroke="#d99e4a" stroke-width=".5"/>
-        <!-- lamp arm -->
-        <line x1="0" y1="0" x2="-65" y2="-55" stroke="#d99e4a" stroke-width="3.5"/>
-        <line x1="-65" y1="-55" x2="-22" y2="-88" stroke="#d99e4a" stroke-width="3"/>
-        <!-- joint -->
-        <circle cx="-65" cy="-55" r="4.5" fill="#d99e4a"/>
-        <circle cx="-65" cy="-55" r="2" fill="#0a140e"/>
-        <!-- lamp head (shade from above — ellipse) -->
-        <ellipse cx="-22" cy="-88" rx="32" ry="16" fill="#d99e4a" opacity=".85"/>
-        <ellipse cx="-22" cy="-88" rx="24" ry="10" fill="#1d3528"/>
-        <!-- warm bulb glow -->
-        <ellipse cx="-22" cy="-88" rx="42" ry="28" fill="url(#mugSteamGrad)" opacity=".6"/>
-        <circle cx="-22" cy="-88" r="6" fill="#f5c06b" opacity=".5">
-          <animate attributeName="opacity" values=".5;.3;.5" dur="5s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-
-      <!-- ═══ OPEN LAPTOP (center-right area) ═══ -->
-      <g transform="translate(860 170)">
-        <!-- laptop screen (foreshortened, standing up — seen from above) -->
-        <rect x="0" y="0" width="300" height="90" rx="5" fill="#0a1410" stroke="#3aa37a" stroke-width="1.2"/>
-        <rect x="5" y="5" width="290" height="80" rx="3" fill="#0c1810"/>
-        <ellipse cx="150" cy="45" rx="130" ry="36" fill="url(#screenLight)"/>
-        <!-- code lines on screen -->
-        <g opacity=".75">
-          <rect x="14" y="14" width="55" height="2.5" rx="1" fill="#7dd47f"/>
-          <rect x="76" y="14" width="38" height="2.5" rx="1" fill="#f5c06b"/>
-          <rect x="120" y="14" width="72" height="2.5" rx="1" fill="#3aa37a"/>
-          <rect x="14" y="22" width="28" height="2.5" rx="1" fill="#5ee2c4"/>
-          <rect x="48" y="22" width="82" height="2.5" rx="1" fill="#7dd47f" opacity=".6"/>
-          <rect x="138" y="22" width="44" height="2.5" rx="1" fill="#f5c06b" opacity=".5"/>
-          <rect x="14" y="30" width="18" height="2.5" rx="1" fill="#cfe9d0" opacity=".4"/>
-          <rect x="38" y="30" width="64" height="2.5" rx="1" fill="#7dd47f" opacity=".5"/>
-          <rect x="14" y="38" width="92" height="2.5" rx="1" fill="#3aa37a" opacity=".6"/>
-          <rect x="112" y="38" width="36" height="2.5" rx="1" fill="#f5c06b" opacity=".4"/>
-          <rect x="14" y="46" width="50" height="2.5" rx="1" fill="#7dd47f" opacity=".5"/>
-          <rect x="70" y="46" width="28" height="2.5" rx="1" fill="#5ee2c4" opacity=".4"/>
-          <rect x="14" y="54" width="74" height="2.5" rx="1" fill="#cfe9d0" opacity=".3"/>
-          <rect x="94" y="54" width="52" height="2.5" rx="1" fill="#7dd47f" opacity=".5"/>
-          <rect x="14" y="62" width="40" height="2.5" rx="1" fill="#f5c06b" opacity=".4"/>
-          <rect x="60" y="62" width="85" height="2.5" rx="1" fill="#3aa37a" opacity=".5"/>
-          <rect x="14" y="70" width="65" height="2.5" rx="1" fill="#7dd47f" opacity=".35"/>
-          <rect x="86" y="70" width="30" height="2.5" rx="1" fill="#5ee2c4" opacity=".3"/>
-        </g>
-        <!-- webcam dot -->
-        <circle cx="150" cy="3.5" r="1.8" fill="#ff8c42" opacity=".25"/>
-
-        <!-- laptop base (keyboard deck) -->
-        <rect x="-10" y="94" width="320" height="210" rx="8" fill="#1d3528" stroke="#3aa37a" stroke-width=".8" opacity=".9"/>
-        <!-- keyboard area -->
-        <rect x="18" y="110" width="264" height="110" rx="4" fill="url(#keyGrid)"/>
-        <!-- trackpad -->
-        <rect x="105" y="240" width="90" height="50" rx="8" fill="#16271e" stroke="#3aa37a" stroke-width=".5" opacity=".5"/>
-        <!-- hinge detail -->
-        <rect x="30" y="92" width="240" height="4" rx="2" fill="#16271e"/>
-        <!-- power LED -->
-        <circle cx="150" cy="302" r="2.5" fill="#7dd47f" opacity=".7">
-          <animate attributeName="opacity" values=".7;.25;.7" dur="3s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-
-      <!-- ═══ NOTEBOOK (left side, slightly angled) ═══ -->
-      <g transform="translate(100 240) rotate(-8)">
-        <!-- cover -->
-        <rect x="0" y="0" width="170" height="230" rx="3" fill="#1d3528" stroke="#d99e4a" stroke-width="1"/>
-        <!-- pages -->
-        <rect x="4" y="4" width="162" height="222" rx="2" fill="#0e1c14"/>
-        <rect x="4" y="4" width="162" height="222" rx="2" fill="url(#notebookLines)" opacity=".6"/>
-        <!-- handwritten-style notes -->
-        <g opacity=".45">
-          <rect x="18" y="22" width="82" height="2" rx="1" fill="#e9e4d0"/>
-          <rect x="18" y="36" width="110" height="2" rx="1" fill="#e9e4d0" opacity=".7"/>
-          <rect x="18" y="50" width="65" height="2" rx="1" fill="#e9e4d0" opacity=".6"/>
-          <rect x="18" y="64" width="100" height="2" rx="1" fill="#e9e4d0" opacity=".5"/>
-          <rect x="18" y="78" width="55" height="2" rx="1" fill="#f5c06b" opacity=".6"/>
-          <rect x="18" y="92" width="90" height="2" rx="1" fill="#e9e4d0" opacity=".4"/>
-          <rect x="18" y="106" width="72" height="2" rx="1" fill="#e9e4d0" opacity=".5"/>
-          <rect x="18" y="120" width="120" height="2" rx="1" fill="#e9e4d0" opacity=".3"/>
-          <!-- small diagram -->
-          <rect x="18" y="144" width="46" height="28" rx="2" fill="none" stroke="#7dd47f" stroke-width=".8"/>
-          <line x1="40" y1="158" x2="82" y2="158" stroke="#7dd47f" stroke-width=".8"/>
-          <rect x="82" y="146" width="36" height="24" rx="2" fill="none" stroke="#f5c06b" stroke-width=".8"/>
-        </g>
-        <!-- spine binding -->
-        <line x1="0" y1="0" x2="0" y2="230" stroke="#d99e4a" stroke-width="3"/>
-        <!-- bookmark ribbon -->
-        <line x1="28" y1="0" x2="26" y2="-16" stroke="#ff8c42" stroke-width="2"/>
-        <path d="M23 -16 L26 -16 L28 -10 L30 -16 L33 -16" fill="#ff8c42" opacity=".8"/>
-      </g>
-
-      <!-- ═══ PEN (near notebook) ═══ -->
-      <g transform="translate(300 360) rotate(15)">
-        <rect x="0" y="0" width="120" height="5.5" rx="2.8" fill="#1d3528"/>
-        <rect x="0" y="0" width="18" height="5.5" rx="2.8" fill="#d99e4a"/>
-        <polygon points="118,0 130,2.75 118,5.5" fill="#e9e4d0" opacity=".6"/>
-        <rect x="18" y="0" width="2" height="5.5" fill="#d99e4a" opacity=".5"/>
-      </g>
-
-      <!-- ═══ SUCCULENT PLANT (far left) ═══ -->
-      <g transform="translate(80 150)">
-        <!-- terracotta pot rim (top-down circle) -->
-        <circle cx="0" cy="0" r="34" fill="#d99e4a" opacity=".65"/>
-        <circle cx="0" cy="0" r="28" fill="#1d3528"/>
-        <circle cx="0" cy="0" r="24" fill="#16271e"/>
-        <!-- rosette leaves -->
-        <g fill="#3aa37a">
-          <ellipse cx="0" cy="-10" rx="5.5" ry="11"/>
-          <ellipse cx="9" cy="-4" rx="5.5" ry="11" transform="rotate(60 9 -4)"/>
-          <ellipse cx="9" cy="5" rx="5.5" ry="11" transform="rotate(120 9 5)"/>
-          <ellipse cx="0" cy="10" rx="5.5" ry="11" transform="rotate(180 0 10)"/>
-          <ellipse cx="-9" cy="5" rx="5.5" ry="11" transform="rotate(240 -9 5)"/>
-          <ellipse cx="-9" cy="-4" rx="5.5" ry="11" transform="rotate(300 -9 -4)"/>
-        </g>
-        <g fill="#7dd47f" opacity=".8">
-          <ellipse cx="0" cy="-5" rx="3.2" ry="6.5"/>
-          <ellipse cx="5" cy="-2" rx="3.2" ry="6.5" transform="rotate(60 5 -2)"/>
-          <ellipse cx="5" cy="3" rx="3.2" ry="6.5" transform="rotate(120 5 3)"/>
-          <ellipse cx="0" cy="5" rx="3.2" ry="6.5" transform="rotate(180 0 5)"/>
-          <ellipse cx="-5" cy="3" rx="3.2" ry="6.5" transform="rotate(240 -5 3)"/>
-          <ellipse cx="-5" cy="-2" rx="3.2" ry="6.5" transform="rotate(300 -5 -2)"/>
-        </g>
-        <circle cx="0" cy="0" r="2.5" fill="#a8d96b"/>
-      </g>
-
-      <!-- ═══ FERN PLANT (far right) ═══ -->
-      <g transform="translate(1480 260)">
-        <circle cx="0" cy="0" r="38" fill="#16271e" stroke="#3aa37a" stroke-width=".8" opacity=".6"/>
-        <circle cx="0" cy="0" r="32" fill="#0e1c14"/>
-        <!-- fern fronds from above -->
-        <g stroke="#3aa37a" stroke-width="1.4" fill="none" opacity=".65">
-          <path d="M0 0 Q -4 -18 0 -26 Q 4 -18 0 0"/>
-          <path d="M0 0 Q 16 -9 24 -3 Q 16 3 0 0"/>
-          <path d="M0 0 Q 16 11 20 20 Q 9 16 0 0"/>
-          <path d="M0 0 Q -2 18 3 26 Q -4 18 0 0"/>
-          <path d="M0 0 Q -18 9 -24 5 Q -16 -2 0 0"/>
-          <path d="M0 0 Q -14 -13 -18 -22 Q -7 -14 0 0"/>
-        </g>
-        <g fill="#7dd47f" opacity=".45">
-          <ellipse cx="-3" cy="-16" rx="4" ry="2.2"/>
-          <ellipse cx="3" cy="-16" rx="4" ry="2.2"/>
-          <ellipse cx="16" cy="-3" rx="2.2" ry="4"/>
-          <ellipse cx="14" cy="13" rx="3" ry="3.5"/>
-          <ellipse cx="1" cy="18" rx="4" ry="2.5"/>
-          <ellipse cx="-16" cy="3" rx="2.2" ry="4"/>
-          <ellipse cx="-12" cy="-13" rx="3" ry="2.2"/>
-        </g>
-      </g>
-
-      <!-- ═══ COFFEE MUG (upper right, top-down circle) ═══ -->
-      <g transform="translate(1360 170)">
-        <!-- mug shadow -->
-        <ellipse cx="4" cy="4" rx="36" ry="36" fill="#0a140e" opacity=".25"/>
-        <!-- mug outer rim -->
-        <circle cx="0" cy="0" r="34" fill="#d99e4a"/>
-        <circle cx="0" cy="0" r="29" fill="#2a1810"/>
-        <circle cx="0" cy="0" r="26" fill="#3a2210"/>
-        <!-- latte art leaf -->
-        <g fill="#d99e4a" opacity=".35">
-          <ellipse cx="0" cy="-5" rx="3.5" ry="9"/>
-          <ellipse cx="-5" cy="-1" rx="3" ry="7" transform="rotate(-30 -5 -1)"/>
-          <ellipse cx="5" cy="-1" rx="3" ry="7" transform="rotate(30 5 -1)"/>
-          <ellipse cx="-3" cy="7" rx="2.5" ry="5.5" transform="rotate(-18 -3 7)"/>
-          <ellipse cx="3" cy="7" rx="2.5" ry="5.5" transform="rotate(18 3 7)"/>
-        </g>
-        <!-- handle -->
-        <path d="M32 -8 Q 50 0 32 8" fill="none" stroke="#d99e4a" stroke-width="5"/>
-        <!-- steam -->
-        <g class="balloon" data-amp="5" data-speed="8" data-phase="0" style="transform:translate(0px,-28px)">
-          <path d="M-7 -8 Q -3 -22 1 -8 Q 5 -22 9 -8" fill="none" stroke="#e9e4d0" stroke-width=".7" opacity=".12">
-            <animate attributeName="opacity" values=".12;.04;.12" dur="4s" repeatCount="indefinite"/>
-          </path>
-        </g>
-        <g class="balloon" data-amp="3" data-speed="10" data-phase="2" style="transform:translate(7px,-32px)">
-          <path d="M-4 -6 Q -1 -16 3 -6 Q 7 -18 11 -6" fill="none" stroke="#e9e4d0" stroke-width=".5" opacity=".08">
-            <animate attributeName="opacity" values=".08;.02;.08" dur="5s" repeatCount="indefinite"/>
-          </path>
-        </g>
-      </g>
-
-      <!-- ═══ PHONE (right area) ═══ -->
-      <g transform="translate(1310 400) rotate(5)">
-        <rect x="-28" y="-52" width="56" height="104" rx="7" fill="#0e1c14" stroke="#3aa37a" stroke-width=".8"/>
-        <rect x="-24" y="-45" width="48" height="90" rx="4" fill="#16271e"/>
-        <!-- notification LED -->
-        <circle cx="-14" cy="-36" r="2.2" fill="#7dd47f" opacity=".6">
-          <animate attributeName="opacity" values=".6;.15;.6" dur="2.5s" repeatCount="indefinite"/>
-        </circle>
-        <!-- screen lines -->
-        <rect x="-18" y="-26" width="36" height="2.5" rx="1" fill="#3aa37a" opacity=".25"/>
-        <rect x="-18" y="-18" width="28" height="2.5" rx="1" fill="#e9e4d0" opacity=".12"/>
-        <rect x="-18" y="-10" width="32" height="2.5" rx="1" fill="#e9e4d0" opacity=".1"/>
-        <!-- camera -->
-        <circle cx="0" cy="-48" r="2.8" fill="#0a140e" stroke="#3aa37a" stroke-width=".4" opacity=".4"/>
-      </g>
-
-      <!-- ═══ SOLAR PANEL CHARGER (far bottom-right) ═══ -->
-      <g transform="translate(1450 480) rotate(-5)">
-        <rect x="-42" y="-28" width="84" height="56" rx="3" fill="url(#solarGrid)" stroke="#3aa37a" stroke-width=".8"/>
-        <!-- USB cable -->
-        <path d="M0 28 Q 12 48 -18 65 Q -38 75 -28 95" fill="none" stroke="#3aa37a" stroke-width="1.5" opacity=".35"/>
-        <!-- charging LED -->
-        <circle cx="-36" cy="-22" r="2" fill="#7dd47f" opacity=".55">
-          <animate attributeName="opacity" values=".55;.15;.55" dur="2s" repeatCount="indefinite"/>
-        </circle>
-      </g>
-
-      <!-- ═══ MOUSE + PAD (below laptop) ═══ -->
-      <g transform="translate(1200 510)">
-        <!-- mouse pad -->
-        <rect x="-48" y="-38" width="96" height="76" rx="6" fill="#0e1c14" stroke="#3aa37a" stroke-width=".4" opacity=".35"/>
-        <!-- mouse body (oval from above) -->
-        <ellipse cx="0" cy="0" rx="17" ry="26" fill="#16271e" stroke="#3aa37a" stroke-width=".8"/>
-        <!-- scroll wheel -->
-        <rect x="-2.5" y="-10" width="5" height="8" rx="2.5" fill="#3aa37a" opacity=".35"/>
-        <!-- button divider -->
-        <line x1="0" y1="-26" x2="0" y2="-3" stroke="#3aa37a" stroke-width=".4" opacity=".25"/>
-        <!-- DPI light -->
-        <circle cx="0" cy="5" r="1.5" fill="#7dd47f" opacity=".4"/>
-      </g>
-    </svg>
-
-    <!-- ░░ FRONT LAYER ░░ foreground items — headphones · cables · sticky notes ░░ -->
-    <svg class="layer-front" viewBox="0 0 1600 260" preserveAspectRatio="none"
-         style="height:30vh; min-height:160px;">
-      <defs>
-        <radialGradient id="deskEdgeGlow" cx=".5" cy="1">
-          <stop offset="0%" stop-color="#f5c06b" stop-opacity=".08"/>
-          <stop offset="100%" stop-color="#f5c06b" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-
-      <!-- ═══ HEADPHONES (far left, draped) ═══ -->
-      <g transform="translate(65 100)">
-        <!-- headband arc -->
-        <path d="M-38 2 Q -40 -46 0 -52 Q 40 -46 38 2" fill="none" stroke="#1d3528" stroke-width="8" stroke-linecap="round"/>
-        <path d="M-38 2 Q -40 -46 0 -52 Q 40 -46 38 2" fill="none" stroke="#3aa37a" stroke-width=".8" opacity=".25"/>
-        <!-- left cup -->
-        <ellipse cx="-40" cy="8" rx="20" ry="26" fill="#16271e" stroke="#3aa37a" stroke-width=".7"/>
-        <ellipse cx="-40" cy="8" rx="13" ry="17" fill="#0e1c14"/>
-        <circle cx="-40" cy="8" r="5" fill="#1d3528" stroke="#3aa37a" stroke-width=".4"/>
-        <!-- right cup -->
-        <ellipse cx="40" cy="8" rx="20" ry="26" fill="#16271e" stroke="#3aa37a" stroke-width=".7"/>
-        <ellipse cx="40" cy="8" rx="13" ry="17" fill="#0e1c14"/>
-        <circle cx="40" cy="8" r="5" fill="#1d3528" stroke="#3aa37a" stroke-width=".4"/>
-        <!-- cable -->
-        <path d="M-40 34 Q -42 56 -28 76 Q -8 96 -18 125" fill="none" stroke="#3aa37a" stroke-width="1.4" opacity=".3"/>
-      </g>
-
-      <!-- ═══ USB CABLE (snaking across bottom) ═══ -->
-      <g opacity=".28">
-        <path d="M420 195 Q 520 168 620 188 Q 730 215 810 195 Q 900 172 960 190" fill="none" stroke="#3aa37a" stroke-width="2" stroke-linecap="round"/>
-        <!-- USB-C connector -->
-        <rect x="410" y="191" width="13" height="7" rx="2" fill="#3aa37a" opacity=".5"/>
-      </g>
-
-      <!-- ═══ STICKY NOTES (upper area) ═══ -->
-      <g transform="translate(210 28)">
-        <!-- note 1 (gold) -->
-        <g transform="rotate(-3)">
-          <rect x="0" y="0" width="52" height="52" rx="2" fill="#f5c06b" opacity=".45"/>
-          <g opacity=".28">
-            <rect x="7" y="14" width="28" height="2" rx="1" fill="#0a140e"/>
-            <rect x="7" y="22" width="35" height="2" rx="1" fill="#0a140e"/>
-            <rect x="7" y="30" width="22" height="2" rx="1" fill="#0a140e"/>
-          </g>
-        </g>
-        <!-- note 2 (leaf, overlapping) -->
-        <g transform="translate(40 -6) rotate(4)">
-          <rect x="0" y="0" width="52" height="52" rx="2" fill="#7dd47f" opacity=".4"/>
-          <g opacity=".22">
-            <rect x="7" y="12" width="30" height="2" rx="1" fill="#0a140e"/>
-            <rect x="7" y="20" width="38" height="2" rx="1" fill="#0a140e"/>
-            <rect x="7" y="28" width="25" height="2" rx="1" fill="#0a140e"/>
-          </g>
-        </g>
-        <!-- note 3 (ember accent, small) -->
-        <g transform="translate(18 48) rotate(6)">
-          <rect x="0" y="0" width="42" height="42" rx="2" fill="#ff8c42" opacity=".3"/>
-        </g>
-      </g>
-
-      <!-- ═══ SMALL ITEMS ═══ -->
-
-      <!-- USB drive -->
-      <g transform="translate(1060 78) rotate(-12)">
-        <rect x="0" y="0" width="28" height="11" rx="2" fill="#16271e" stroke="#3aa37a" stroke-width=".5"/>
-        <rect x="26" y="2" width="7" height="7" rx="1" fill="#3aa37a" opacity=".45"/>
-        <circle cx="8" cy="5.5" r="1.5" fill="#7dd47f" opacity=".45"/>
-      </g>
-
-      <!-- paper clip -->
-      <g transform="translate(490 115) rotate(22)">
-        <path d="M0 0 Q 0 -14 5 -14 Q 10 -14 10 0 Q 10 18 5 18 Q 0 18 0 5" fill="none" stroke="#d99e4a" stroke-width="1.1" opacity=".3"/>
-      </g>
-
-      <!-- tiny cactus in pot -->
-      <g transform="translate(1500 115)">
-        <rect x="-10" y="0" width="20" height="14" rx="2" fill="#d99e4a" opacity=".45"/>
-        <rect x="-6" y="-16" width="12" height="18" rx="5" fill="#3aa37a"/>
-        <rect x="-9" y="-10" width="3.5" height="7" rx="1.8" fill="#3aa37a" transform="rotate(-28 -9 -10)"/>
-        <rect x="5" y="-14" width="3.5" height="9" rx="1.8" fill="#3aa37a" transform="rotate(22 5 -14)"/>
-        <!-- tiny spines -->
-        <g stroke="#e9e4d0" stroke-width=".3" opacity=".35">
-          <line x1="0" y1="-16" x2="0" y2="-20"/>
-          <line x1="-3" y1="-12" x2="-6" y2="-14"/>
-          <line x1="3" y1="-12" x2="6" y2="-14"/>
-        </g>
-      </g>
-
-      <!-- coaster ring mark on desk -->
-      <g transform="translate(720 155)">
-        <circle cx="0" cy="0" r="22" fill="none" stroke="#d99e4a" stroke-width=".8" opacity=".1"/>
-        <circle cx="0" cy="0" r="20" fill="none" stroke="#d99e4a" stroke-width=".4" opacity=".06"/>
-      </g>
-
-      <!-- rubber band -->
-      <g transform="translate(1155 168) rotate(-18)">
-        <ellipse cx="0" cy="0" rx="14" ry="7" fill="none" stroke="#ff8c42" stroke-width="1.4" opacity=".22"/>
-      </g>
-
-      <!-- ambient bottom edge glow -->
-      <ellipse cx="800" cy="260" rx="800" ry="80" fill="url(#deskEdgeGlow)"/>
-    </svg>
+    <div class="celestial moon"></div>
+    <div class="celestial sun"></div>
 
   </div>
 
   <div class="hero-grid">
     <div style="color: red">
       <span class="hero-eyebrow"><span class="led"></span><span data-i18n="hero_eyebrow">HOMELAB ONLINE · CS PORTFOLIO · v26.05</span></span>
-      <h1>Josua<br/>Martinez<br/><span class="accent" data-i18n="hero_accent">construyendo, aprendiendo y mejorando</span></h1>
-     <p class="hero-sub" style="color: rgb(255, 51, 0)" data-i18n="hero_sub">Email:martinez.roman.josua@gmail.com
+      <h1>Josua<br/>Martinez<br/><span class="accent">construyendo, aprendiendo y mejorando</span></h1>
+           <p class="hero-sub" style="color: rgb(255, 51, 0)">Email:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f222e3d3b26212a35613d20222e216125203c3a2e0f28222e2623612c2022">[email&#160;protected]</a>
  <br/>
 
 31 Julio 1995<br/>
@@ -1259,22 +902,22 @@ Ponce, PR</p><br/>
   <div class="container">
     <div class="section-hd">
       <span class="section-num">/ 02</span>
-      <h2><span data-i18n="s02_pre">Una</span> <em data-i18n="s02_em">introducion.</em></h2>
+      <h2><span data-i18n="s02_pre">An</span> <em data-i18n="s02_em">introduction.</em></h2>
       <div class="section-rule"></div>
     </div>
 
     <div class="intro-grid">
       <div class="intro-body reveal">
-        <span class="placeholder" data-i18n="intro_placeholder">“Sigue hacia adelante, sigue aprendiendo y nunca te conformes con la versión de ayer. Cada experiencia, error y logro es parte del proceso de convertirte en alguien mejor.”</span>
-        <p data-i18n="intro_p1">Soy un profesional dedicado y adaptable, con experiencia trabajando junto a equipos estratégicos para entregar contenido de alta calidad de manera eficiente y efectiva. Poseo sólidas habilidades en logística de preproducción, planificación detallada y gestión de recursos, lo que me ha permitido apoyar proyectos que requieren organización, coordinación y cumplimiento de plazos. Actualmente me encuentro cursando estudios en Ciencias de la Computación para continuar fortaleciendo mis conocimientos técnicos y ampliar mi capacidad de aportar tanto en entornos creativos como tecnológicos. A través de mi experiencia coordinando planes de producción y gestionando recursos de personal, he desarrollado una ética de trabajo disciplinada, habilidades de resolución de problemas y la capacidad de desempeñarme eficazmente bajo presión.</p>
-        <p data-i18n="intro_p2">Pienso en cada proyecto como un pequeño ecosistema: debe funcionar de manera fluida, aportar más de lo que consume y ser un placer de mantener.</p>
+        <p>Soy una persona dedicado y adaptable, con experiencia trabajando junto a equipos estratégicos para entregar contenido de alta calidad de manera eficiente y efectiva. Poseo sólidas habilidades en logística de preproducción, planificación detallada y gestión de recursos, lo que me ha permitido apoyar proyectos que requieren organización, coordinación y cumplimiento de plazos.</p>
+        <p>Actualmente me encuentro cursando estudios en Ciencias de la Computación para continuar fortaleciendo mis conocimientos técnicos y ampliar mi capacidad de aportar tanto en entornos creativos como tecnológicos. A través de mi experiencia coordinando planes de producción y gestionando recursos de personal, he desarrollado una ética de trabajo disciplinada, habilidades de resolución de problemas y la capacidad de desempeñarme eficazmente bajo presión.</p>
+        <p>Cada proyecto es como un pequeño ecosistema: debe funcionar de forma silenciosa, dar más de lo que toma, y ser un placer de mantener.</p>
       </div>
 
       <aside class="factcard reveal">
-        <div class="row"><span class="k">Based in</span><span class="v">Puerto Rico</span></div>
-        <div class="row"><span class="k">Studying</span><span class="v">Ciencias de Computadora</span></div>
-        <div class="row"><span class="k">Currently</span><span class="v">Buscando oportunidades</span></div>
-        <div class="row"><span class="k">Off‑hours</span><span class="v">Coding· Game dev</span></div>
+        <div class="row"><span class="k">Ubicación</span><span class="v">Puerto Rico</span></div>
+        <div class="row"><span class="k">Estudiando</span><span class="v">Ciencias de la Computación</span></div>
+        <div class="row"><span class="k">Actualmente</span><span class="v">Abierto a pasantías</span></div>
+        <div class="row"><span class="k">Tiempo libre</span><span class="v">Programación · Game dev</span></div>
       </aside>
     </div>
   </div>
@@ -1286,7 +929,7 @@ Ponce, PR</p><br/>
   <div class="container">
     <div class="section-hd">
       <span class="section-num">/ 03</span>
-      <h2><span data-i18n="s03_pre">Lenguajes &amp;</span> <em data-i18n="s03_em">Herramientas</em></h2>
+      <h2><span data-i18n="s03_pre">Tools &amp;</span> <em data-i18n="s03_em">stack.</em></h2>
       <div class="section-rule"></div>
     </div>
 
@@ -1357,7 +1000,7 @@ Ponce, PR</p><br/>
             <span class="chip">Node.js</span>
             <span class="chip gold">Unity</span>
             <span class="chip">.NET</span>
-            <span class="chip">Flutter</span>
+            <span class="chip">Laravel</span>
             <span class="chip">REST APIs</span>
           </div>
         </div>
@@ -1369,7 +1012,7 @@ Ponce, PR</p><br/>
             <span class="chip">Git</span>
             <span class="chip gold">Networking</span>
             <span class="chip">MySQL</span>
-           
+            <span class="chip ember">Homelab</span>
           </div>
         </div>
         <div class="skill-group">
@@ -1389,17 +1032,17 @@ Ponce, PR</p><br/>
 
 
 <!-- WORK -->
-<section class="scene" id="work" data-screen-label="04 Experiencia y proyectos">
+<section class="scene" id="work" data-screen-label="04 Experience and Projects">
   <div class="container">
     <div class="section-hd">
       <span class="section-num">/ 04</span>
-      <h2><span data-i18n="s04_pre">Experiencia y</span> <em data-i18n="s04_em">proyectos.</em></h2>
+      <h2><span data-i18n="s04_pre">Experience &amp;</span> <em data-i18n="s04_em">projects.</em></h2>
       <div class="section-rule"></div>
     </div>
 
     <div class="proj-grid">
       <article class="proj span-3 reveal">
-        <span class="proj-no">01 · Aplicación web</span>
+        <span class="proj-no">01 · Aplicación Web</span>
         <div class="proj-glyph">
           <!-- planner glyph -->
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--leaf)">
@@ -1409,13 +1052,13 @@ Ponce, PR</p><br/>
             <path d="M7 14l2 2 4-4"/>
           </svg>
         </div>
-        <h3 data-i18n="proj1_t">Organizador de trabajos estudiantiles</h3>
-        <p data-i18n="proj1_d">Un planificador para cursos, fechas límite y sesiones de estudio, creado para poner orden en un semestre cargado. Da seguimiento a las asignaciones, resalta lo próximo por entregar y convierte el prontuario en un horario confiable.</p>
-        <div class="tags"><span>full‑stack</span><span>autenticación</span><span>horarios</span></div>
+        <h3>TaskBoard - Organizador de Trabajo Estudiantil</h3>
+        <p>Un organizador de tareas para cursos, fechas límite y sesiones de estudio — construido para eliminar el caos de un semestre pesado. Rastrea asignaciones, muestra lo que vence próximamente, y convierte un syllabus en un horario confiable.</p>
+        <div class="tags"><span>full‑stack</span><span>auth</span><span>scheduling</span></div>
       </article>
 
       <article class="proj span-3 reveal">
-        <span class="proj-no">02 · Agente de IA</span>
+        <span class="proj-no">02 · Agente IA</span>
         <div class="proj-glyph">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)">
             <rect x="3" y="6" width="14" height="14" rx="2"/>
@@ -1423,9 +1066,9 @@ Ponce, PR</p><br/>
             <path d="M11 10h6M11 14h4"/>
           </svg>
         </div>
-        <h3 data-i18n="proj2_t">Briscas — Oponente de cartas con IA</h3>
-        <p data-i18n="proj2_d">Un agente que juega Briscas, el clásico juego español de bazas. Lleva control de las cartas restantes, evalúa el valor del triunfo frente al ritmo de juego y puede engañar razonablemente bien a oponentes humanos. Un ejercicio de IA de juegos compacta y hecha a mano.</p>
-        <div class="tags"><span>IA de juegos</span><span>heurísticas</span><span>búsqueda de estados</span></div>
+        <h3>Briscas — Oponente de Cartas IA</h3>
+        <p>Un agente que juega Briscas, el clásico juego de cartas español. Rastrea las cartas restantes, evalúa valor de triunfo vs. tempo, y hace bluffs razonablemente bien contra humanos. Un estudio en IA de juegos compacta y hecha a mano.</p>
+        <div class="tags"><span>game AI</span><span>heuristics</span><span>state search</span></div>
       </article>
 
       <article class="proj span-2 reveal">
@@ -1436,9 +1079,9 @@ Ponce, PR</p><br/>
             <path d="M12 22V8M12 8c-2 0-4-2-4-5 2 0 4 2 4 5zM12 8c2 0 4-2 4-5-2 0-4 2-4 5z"/>
           </svg>
         </div>
-        <h3 data-i18n="proj3_t">Aplicación de jardinería</h3>
-        <p data-i18n="proj3_d">Un rastreador de cuidado planta por planta con horarios de riego, registros de exposición al sol y una pequeña biblioteca de plantas compañeras.</p>
-        <div class="tags"><span>móvil</span><span>local-first</span></div>
+        <h3>App de Jardinería</h3>
+        <p>Rastreador de cuidado planta por planta con horarios de riego, registros de exposición solar y una pequeña biblioteca de plantas compañeras.</p>
+        <div class="tags"><span>mobile</span><span>local‑first</span></div>
       </article>
 
       <article class="proj span-2 reveal">
@@ -1449,8 +1092,8 @@ Ponce, PR</p><br/>
             <path d="M7 13h2M8 12v2M15 12.5h.01M17.5 13.5h.01"/>
           </svg>
         </div>
-        <h3 data-i18n="proj4_t">Desarrollo de juegos en Unity</h3>
-        <p data-i18n="proj4_d">Una colección en crecimiento de pequeños prototipos en Unity: sistemas de movimiento, árboles de diálogo y shaders personalizados. Aquí aprendo entregando la versión más pequeña que ya se pueda jugar.</p>
+        <h3>Desarrollo de Juegos Unity</h3>
+        <p>Una colección creciente de pequeños prototipos en Unity — sistemas de movimiento, árboles de diálogo, shaders personalizados. Donde aprendo haciendo la cosa más pequeña jugable.</p>
         <div class="tags"><span>Unity</span><span>C#</span><span>shaders</span></div>
       </article>
 
@@ -1461,17 +1104,33 @@ Ponce, PR</p><br/>
             <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/>
           </svg>
         </div>
-        <h3 data-i18n="proj5_t">Rastreador de apagones</h3>
-        <p data-i18n="proj5_d">Recopila y visualiza datos de interrupciones del servicio eléctrico, organiza la cantidad de clientes por región y señala incidentes prolongados. Una herramienta pensada para los residentes, no para comunicados de prensa.</p>
-        <div class="tags"><span>visualización de datos</span><span>scraping</span><span>mapas</span></div>
+        <h3>Rastreador de Cortes de Energía</h3>
+        <p>Extrae y visualiza datos de cortes de servicios públicos, mapea recuentos de clientes por región, y señala incidentes de larga duración. Una herramienta para residentes, no comunicados de prensa.</p>
+        <div class="tags"><span>data‑viz</span><span>scraping</span><span>maps</span></div>
       </article>
     </div>
 
+    <!-- Internship: TV Producer -->
     <div class="xp-row reveal">
-      <div class="when">XP · PUESTOS</div>
       <div>
-        <h3>[ Puestos ] · [ Lugar ]</h3>
-        <p><em style="font-family:var(--serif); color:var(--gold);">[ Descripción ]</em> — información</p>
+        <div class="when">INTERNADO</div>
+      </div>
+      <div>
+        <div class="company">Noticias universitarias locales- Catolica</div>
+        <h3>Productor de Video / Periodismo</h3>
+        <p>Coordiné logística de preproducción y planificación de recursos para producción de contenido universitario local. Trabajé con equipos estratégicos para entregar contenido de alta calidad cumpliendo plazos ajustados. Utilicé Adobe Premiere, Audition y Photoshop para edición y postproducción.</p>
+      </div>
+    </div>
+
+    <!-- Volunteer: Camera Operator -->
+    <div class="xp-row reveal">
+      <div>
+        <div class="when">Asosiacion</div>
+      </div>
+      <div>
+        <div class="company">Universidad Interamericana de Puerto Rico</div>
+        <h3>Miembro de la Asociacion de Computarodars y Tecnologia</h3>
+        <p>Miembro activo de una asociación de tecnología y computación, colaborando en proyectos y actividades enfocadas en el aprendizaje continuo, la resolución de problemas y el desarrollo de habilidades técnicas. Participé en iniciativas relacionadas con programación, tecnología y trabajo en equipo, fortaleciendo conocimientos en entornos colaborativos y de innovación.</p>
       </div>
     </div>
   </div>
@@ -1479,36 +1138,36 @@ Ponce, PR</p><br/>
 
 
 <!-- RESUME -->
-<section class="scene" id="resume" data-screen-label="05 Currículum">
+<section class="scene" id="resume" data-screen-label="05 Resume">
   <div class="container">
     <div class="section-hd">
       <span class="section-num">/ 05</span>
-      <h2><span data-i18n="s05_pre">Currículum y</span> <em data-i18n="s05_em">contacto.</em></h2>
+      <h2><span data-i18n="s05_pre">Résumé &amp;</span> <em data-i18n="s05_em">contact.</em></h2>
       <div class="section-rule"></div>
     </div>
 
     <div class="resume-card reveal">
       <div>
-        <h3><span data-i18n="res_h3_pre">Conoce más,</span> <em data-i18n="res_h3_em">si deseas conocer mas.</em></h3>
-        <p data-i18n="res_p">Descarga mi currículum en formato DOCX o visita mi LinkedIn para conocer más sobre mi experiencia.</p>
+        <h3><span>El documento de una página,</span> <em>si lo necesitas.</em></h3>
+        <p>Dos páginas de la misma historia que cuenta este sitio, pero doblado limpio para una impresora. Presiona el botón — o visita mi LinkedIn para la versión en vivo.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="Resume-Josua-Martinez.docx" id="resume-link"><span data-i18n="res_cta1">Descargar currículum</span> <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-primary" href="#" id="resume-link"><span>Descargar résumé (PDF)</span> <span aria-hidden="true">↓</span></a>
           <a class="btn" href="https://www.linkedin.com/in/josua-martinez/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
       </div>
       <div class="resume-meta">
-        <div><span class="k" data-i18n="res_name_k">name      </span> <span class="v">Josua Martinez</span></div>
-        <div><span class="k" data-i18n="res_role_k">role      </span> <span class="v" data-i18n="res_role_v">CS Student</span></div>
-        <div><span class="k" data-i18n="res_focus_k">focus     </span> <span class="v" data-i18n="res_focus_v">Distributed systems</span></div>
+        <div><span class="k">nombre    </span> <span class="v">Josua Martinez</span></div>
+        <div><span class="k">rol       </span> <span class="v">Estudiante CS · Constructor</span></div>
+        <div><span class="k">enfoque   </span> <span class="v">Sistemas dist. · Homelab</span></div>
         <div><span class="k">linkedin  </span> <span class="v">/in/josua‑martinez</span></div>
-        <div><span class="k" data-i18n="res_status_k">status    </span> <span class="v" style="color:var(--leaf)" data-i18n="res_status_v">● Buscando oportunidades</span></div>
+        <div><span class="k">estado    </span> <span class="v" style="color:var(--leaf)">● Abierto a pasantías</span></div>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div data-i18n="footer_copy">© 2026 Josua Martinez · hecho en PR</div>
+  <div>© 2026 Josua Martinez · cultivado en PR.</div>
   <div><a href="https://www.linkedin.com/in/josua-martinez/" target="_blank" rel="noopener">LinkedIn ↗</a></div>
 </footer>
 
@@ -1693,7 +1352,7 @@ Ponce, PR</p><br/>
 
   // ── language toggle (EN / ES) ────────────────────────────────
   const langBtn = document.getElementById('lang-btn');
-  let currentLang = localStorage.getItem('jm-lang') || 'es';
+  let currentLang = localStorage.getItem('jm-lang') || 'en';
 
   const i18n = {
     nav_home:    { en: 'Home', es: 'Inicio' },
@@ -1703,16 +1362,16 @@ Ponce, PR</p><br/>
     nav_resume:  { en: 'Resume', es: 'Currículum' },
 
     hero_eyebrow:{ en: 'HOMELAB ONLINE · CS PORTFOLIO · v26.05', es: 'HOMELAB EN LÍNEA · PORTAFOLIO CS · v26.05' },
-    hero_accent: { en: 'building quiet, green systems.', es: 'construyendo sistemas silenciosos y sostenibles.' },
-    hero_sub:    { en: 'CS student building distributed systems & homelab infrastructure — somewhere between the server rack and the rooftop garden.', es: 'Estudiante de Ciencias de la Computación que desarrolla sistemas distribuidos e infraestructura homelab — entre el rack de servidores y el jardín en la azotea.' },
+    hero_accent: { en: 'building quiet, green systems.', es: 'construyendo sistemas verdes y silenciosos.' },
+    hero_sub:    { en: 'CS student building distributed systems & homelab infrastructure — somewhere between the server rack and the rooftop garden.', es: 'Estudiante de CS construyendo sistemas distribuidos e infraestructura homelab — entre el rack de servidores y el jardín en la azotea.' },
     hero_cta1:   { en: 'View projects', es: 'Ver proyectos' },
     hero_cta2:   { en: 'Read résumé', es: 'Leer currículum' },
 
     s02_pre:     { en: 'An', es: 'Una' },
     s02_em:      { en: 'introduction.', es: 'introducción.' },
-    intro_placeholder: { en: '[ Insert intro paragraph here ]', es: '[ Escriba una introducción profesional aquí ]' },
-    intro_p1:    { en: "A few sentences about who I am, where I'm studying, and what pulls me toward computer science — the kind of problems I like to sit with, the things I've built, and the corners of the field I'm curious about next.", es: 'Soy un profesional dedicado y adaptable, con experiencia colaborando con equipos estratégicos para entregar contenido de alta calidad de forma eficiente y efectiva. Cuento con sólidas destrezas en logística de preproducción, planificación detallada y gestión de recursos, lo que me ha permitido apoyar proyectos que exigen organización, coordinación y cumplimiento de plazos. Actualmente curso estudios en Ciencias de la Computación para seguir fortaleciendo mis conocimientos técnicos y ampliar mi capacidad de aportar en entornos creativos y tecnológicos. A partir de mi experiencia coordinando planes de producción y administrando recursos de personal, he desarrollado una ética de trabajo disciplinada, habilidades para resolver problemas y la capacidad de desempeñarme con eficacia bajo presión.' },
-    intro_p2:    { en: 'I think of every project like a small ecosystem: it should run quietly, give more than it takes, and be a pleasure to maintain.', es: 'Concibo cada proyecto como un pequeño ecosistema: debe operar con fluidez, aportar más de lo que consume y resultar agradable de mantener.' },
+    intro_placeholder: { en: '[ Insert intro paragraph here ]', es: '[ Inserte párrafo introductorio aquí ]' },
+    intro_p1:    { en: "A few sentences about who I am, where I'm studying, and what pulls me toward computer science — the kind of problems I like to sit with, the things I've built, and the corners of the field I'm curious about next.", es: 'Algunas frases sobre quién soy, dónde estudio y qué me atrae de la informática — el tipo de problemas con los que me gusta trabajar, lo que he construido y los rincones del campo que quiero explorar.' },
+    intro_p2:    { en: 'I think of every project like a small ecosystem: it should run quietly, give more than it takes, and be a pleasure to maintain.', es: 'Pienso en cada proyecto como un pequeño ecosistema: debe funcionar en silencio, dar más de lo que toma y ser un placer de mantener.' },
 
     s03_pre:     { en: 'Tools &', es: 'Herramientas y' },
     s03_em:      { en: 'stack.', es: 'tecnologías.' },
@@ -1723,15 +1382,15 @@ Ponce, PR</p><br/>
 
     s04_pre:     { en: 'Experience &', es: 'Experiencia y' },
     s04_em:      { en: 'projects.', es: 'proyectos.' },
-    proj1_t:     { en: 'Student Work Organizer', es: 'Organizador de trabajos estudiantiles' },
+    proj1_t:     { en: 'Student Work Organizer', es: 'Organizador de Trabajo Estudiantil' },
     proj1_d:     { en: 'A planner for coursework, deadlines and study sessions — built to take the chaos out of a heavy semester. Tracks assignments, surfaces what\u2019s due next, and turns a syllabus into a schedule you can trust.', es: 'Un planificador para tareas, fechas límite y sesiones de estudio — hecho para ordenar el caos de un semestre pesado. Rastrea tareas, muestra lo que viene y convierte un programa en un horario confiable.' },
-    proj2_t:     { en: 'Briscas — AI card opponent', es: 'Briscas — Oponente de cartas con IA' },
+    proj2_t:     { en: 'Briscas — AI card opponent', es: 'Briscas — Oponente de cartas IA' },
     proj2_d:     { en: 'An agent that plays Briscas, the classic Spanish trick\u2011taking game. Tracks remaining cards, weighs trump value vs. tempo, and bluffs reasonably well against humans. A study in compact, hand\u2011rolled game AI.', es: 'Un agente que juega Briscas, el clásico juego español de bazas. Rastrea cartas restantes, evalúa triunfo vs. tempo y farolea razonablemente bien contra humanos. Un estudio en IA de juegos compacta y artesanal.' },
-    proj3_t:     { en: 'Gardening App', es: 'Aplicación de jardinería' },
+    proj3_t:     { en: 'Gardening App', es: 'App de Jardinería' },
     proj3_d:     { en: 'Plant\u2011by\u2011plant care tracker with watering schedules, sun\u2011exposure logs and a small library of companion plants.', es: 'Rastreador de cuidado planta por planta con horarios de riego, registros de exposición solar y una biblioteca de plantas compañeras.' },
-    proj4_t:     { en: 'Unity Game Dev', es: 'Desarrollo de juegos en Unity' },
-    proj4_d:     { en: 'A growing collection of small Unity prototypes — movement systems, dialogue trees, custom shaders. Where I learn by shipping the smallest playable thing.', es: 'Una colección en crecimiento de pequeños prototipos en Unity: sistemas de movimiento, árboles de diálogo y shaders personalizados. Aquí aprendo entregando la versión más pequeña que ya se pueda jugar.' },
-    proj5_t:     { en: 'Power Outage Tracker', es: 'Rastreador de apagones' },
+    proj4_t:     { en: 'Unity Game Dev', es: 'Desarrollo de Juegos Unity' },
+    proj4_d:     { en: 'A growing collection of small Unity prototypes — movement systems, dialogue trees, custom shaders. Where I learn by shipping the smallest playable thing.', es: 'Una colección creciente de pequeños prototipos en Unity — sistemas de movimiento, árboles de diálogo, shaders personalizados. Donde aprendo lanzando lo más pequeño jugable.' },
+    proj5_t:     { en: 'Power Outage Tracker', es: 'Rastreador de Cortes de Energía' },
     proj5_d:     { en: 'Scrapes & visualizes utility outage data, maps customer counts by region, and flags long\u2011running incidents. A tool for residents, not press releases.', es: 'Recopila y visualiza datos de cortes, mapea clientes por región y señala incidentes prolongados. Una herramienta para residentes, no comunicados de prensa.' },
 
     s05_pre:     { en: 'Résumé &', es: 'Currículum y' },
@@ -1752,49 +1411,18 @@ Ponce, PR</p><br/>
   };
 
   function applyLang(lang) {
-    currentLang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (i18n[key] && i18n[key][lang]) {
         el.textContent = i18n[key][lang];
       }
     });
-    langBtn.textContent = lang.toUpperCase();
     localStorage.setItem('jm-lang', lang);
     document.documentElement.lang = lang;
   }
 
-  langBtn.addEventListener('click', () => {
-    applyLang(currentLang === 'en' ? 'es' : 'en');
-  });
-
   // apply saved language on load
   if (currentLang !== 'en') applyLang(currentLang);
-
-
-  // ── day/night toggle ───────────────────────────────────────
-  const root = document.documentElement;
-  const dn = document.getElementById('daynight');
-  const dnIcon = document.getElementById('dn-icon');
-  const sunPath = `<circle cx="12" cy="12" r="4"/>
-                   <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>`;
-  const moonPath = `<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>`;
-
-  const saved = localStorage.getItem('jm-theme');
-  if (saved) root.setAttribute('data-theme', saved);
-  syncIcon();
-
-  function syncIcon() {
-    const isDay = root.getAttribute('data-theme') === 'day';
-    dnIcon.innerHTML = isDay ? sunPath : moonPath;
-  }
-  dn.addEventListener('click', () => {
-    const isDay = root.getAttribute('data-theme') === 'day';
-    if (isDay) root.removeAttribute('data-theme');
-    else       root.setAttribute('data-theme', 'day');
-    localStorage.setItem('jm-theme', root.getAttribute('data-theme') || 'night');
-    syncIcon();
-  });
 
 })();
 </script>
